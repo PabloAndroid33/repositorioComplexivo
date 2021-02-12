@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+	<f:metadata>
+		<f:viewParam name="id" value="#{controler.id}"></f:viewParam>
+		<f:viewAction action="#{controler.loadDatosReferencia ()}"/>
+	</f:metadata>
+
+
+</head>
+
+<ui:composition template="/templates/plantilla.xhtml">
+<ui:define name="pageTitle">Actualizar Usuario Bibliotecario</ui:define>
+			
+		
+			
+<ui:define name="contenido2">
+
+<center><h2>Actualizar Datos Referencia</h2>
+
+<h:form>
+	<h:panelGrid columns="2">
+		<h:outputLabel value="Nombre de Articulo:" />
+								   	<h:inputText value="#{controler.newReferencia.nombre}" styleClass="form-control"/>
+									<h:outputLabel value="Referencia APA:" />
+									<h:inputTextarea value="#{controler.newReferencia.referencia}" styleClass="form-control" cols="30" rows="3" />
+								  	
+								  	<h:outputLabel value="PDF a Subir:" />   	 	
+									
+                         			
+                         			<p:fileUpload update="messages"  messageTemplate="SELECCIONE TIPO CORECTO" value="#{controler.newReferencia.urlArchivo}" mode="simple" skinSimple="true" 
+                  					 allowTypes="/(\.|\/)(pdf)$/" />
+                  				
+									
+									<h:outputLabel value="Resumen:" />
+								   	<h:inputTextarea value="#{controler.newReferencia.resumen}" styleClass="form-control" cols="30" rows="3" />	
+	
+		
+	
+	</h:panelGrid>
+	<br/>
+		<h:commandButton action="#{controler.cargarDatosReferencia()}"  value="Actualizar"  styleClass="btn btn-primary"/>
+	
+	
+	
+
+	
+
+</h:form>
+
+
+</center>
+</ui:define>
+
+</ui:composition>
+
+
+
+</html>

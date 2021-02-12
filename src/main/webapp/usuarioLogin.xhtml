@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	
+	
+	<ui:composition template="/templates/plantillaCuenta.xhtml">
+		<ui:define name="pageTitle">SociedadLector</ui:define>
+		<ui:define name="pageHeader">Ingreso Usuario</ui:define>
+		<ui:define name="contenido2">
+			
+							
+				<div>
+					<center>
+						
+					</center>
+				</div>
+				<div class="row">
+  				
+  				<h:form>
+  					<div class="form-group" style="width:6cm">
+						<label for="txtCorreoUsr">
+							<font size="3" color="black" face="Verdana" >
+							  	<p>E-mail:</p>
+							</font>
+						</label>
+						<h:inputText value="#{controler.usuarioVerificar.usrCorreo}" id="txtCorreoUsr"
+							class="form-control" />
+						
+						
+						<font color="red"><h:message for="txtCorreoUsr" /></font>
+					</div>
+					
+					<br />	
+					
+					<div class="form-group" style="width:6cm">
+						<label for="txtPasswordUsr">
+							<font size="3" color="black" face="Verdana" >
+							  	<p>Password:</p>
+							</font>
+						</label>
+						
+						<h:inputSecret  value="#{controler.usuarioVerificar.usrPassword}" id="txtPasswordUsr"
+							class="form-control" size="40"/>
+						
+						<font color="red"><h:message for="txtPasswordUsr" /></font>
+					</div>
+					<font color="red"><h:messages globalOnly="true"/></font>
+					<br />			
+					
+					<h:commandButton value="Ingresar" action="#{controler.validarAdmin()}"  class="btn btn-primary"/>
+					
+					<br/>
+				</h:form>
+  				</div>
+	  			
+	  			
+	  		
+			
+					
+					
+				
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<head>
+<f:viewParam name="id" value="#{controler.id}"></f:viewParam>
+		<f:viewAction action="#{controler.loadDatosUsuario()}"/>
+<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+
+</head>
+
+<ui:composition template="/templates/plantilla.xhtml">
+<ui:define name="pageTitle">Actualizar Usuario Bibliotecario</ui:define>
+			
+		
+			
+<ui:define name="contenido2">
+
+<center><h2>Actualizar Datos Usuario</h2>
+
+<h:form >
+<h:dataTable value="#{controler.ltsUsuario}" var="usuario" class="table">
+
+    <h:column>
+    <f:facet name="header">Id</f:facet>
+    #{usuario.idUsuario}
+    </h:column>
+    <h:column>
+    <f:facet name="header">Nombre</f:facet>
+    #{usuario.nombre}
+    </h:column>
+    <h:column>
+    <f:facet name="header">Apellido</f:facet>
+    #{usuario.apellido}
+    </h:column>
+    <h:column>
+    <f:facet name="header">Correo</f:facet>
+    #{usuario.usrCorreo}
+    </h:column>
+    
+   
+    <h:column>
+    <f:facet name="header">Password</f:facet>
+    #{usuario.usrPassword}
+    </h:column>
+    
+   
+    <h:column>
+    <f:facet name="header">User</f:facet>
+    #{usuario.usrNombre}
+    </h:column>
+    
+ 
+    <h:column>
+    <f:facet name="header">Telefono</f:facet>
+    #{usuario.telefono}
+    </h:column>
+	<h:column>
+	<f:facet name="header">Acciones</f:facet>
+    <h:commandButton action="#{controler.editarUsuario(usuario.idUsuario)}" value="Editar" immediate="true" styleClass="btn btn-primary"/>
+	</h:column>	
+</h:dataTable>
+
+</h:form>   
+
+</center>
+</ui:define>
+
+</ui:composition>
+
+
+
+</html>

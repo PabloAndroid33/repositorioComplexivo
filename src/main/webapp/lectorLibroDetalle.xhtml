@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+	<f:metadata>
+		<f:viewParam name="id" value="#{controler.id}"></f:viewParam>
+		<f:viewAction action="#{controler.loadDatosReferencia ()}"/>
+	</f:metadata>
+	
+	<style type="text/css">
+
+
+span.derecha{
+margin-right: 0px;
+}
+
+span.izquierda{
+margin-left: 0px;
+} 
+
+
+</style>
+
+<f:viewParam name="id" value="#{controler.id}"></f:viewParam>
+		<f:viewAction action="#{controler.loadDatosReferencia()}"/>
+</h:head>
+
+<ui:composition template="/templates/plantillaLector.xhtml">
+<ui:define name="pageTitle">Articulo Detalle</ui:define>
+			
+		
+<p:rating  stars="10" cancel="false" onRate="alert('You rated ' + value)" />
+
+
+			
+<ui:define name="conteLector">
+
+
+<h:dataTable value="#{controler.listReferencia}" rows="1" var="referencia" styleClass="table-hover"  tableStyle="font-family: sans-serif; border:none;font-size:  small;padding:1px; background-color: #EAF7FC; background:#EAF7FC"
+>
+
+<h:column>
+<a href="#{facesContext.externalContext.requestContextPath}#{referencia.urlArchivo}"><img src="imagenes/otPdf.PNG" width="310" height="”330”" alt="" /></a>
+
+</h:column>
+
+	<h:column>
+	
+	
+
+	
+
+
+
+<div class="row">
+
+
+
+  <div class="col-10"><h:outputLabel value="#{controler.newReferencia.nombre}" style="font-size: 2.5em; text-align:left;"  /></div>
+  <div class="col-2" style="background-color: yellow;" title="Calificacion" > <h:outputLabel value="#{controler.newReferencia.calificacionTotal}" style="font-size: 2.5em;  color:#FF0000" /></div>
+
+
+
+</div>
+	
+	
+	
+	<strong></strong>
+	
+	
+	<h:panelGrid columns="2">
+	
+		<strong>Resumen: </strong>
+		<h:outputLabel value="#{controler.newReferencia.resumen}" cols="30" rows="3" />	
+		<strong>Referencia APA:</strong>
+		<h:outputLabel value="#{controler.newReferencia.referencia}" cols="30" rows="3" />
+		<strong>Palabra Clave:</strong>
+		<h:outputLabel value="#{controler.newReferencia.keywords}" cols="30" rows="3" />
+		
+	</h:panelGrid>
+	<br/>
+	<h:form>
+	<h:panelGrid columns="3">
+	
+	<strong>Calificar:</strong>
+		<p:rating value="#{controler.newReferencia.calificacion}" id="otro" stars="10" ></p:rating>
+		<p:commandButton value="Valorar"  class="btn btn-warning" style="margin-right:10px;width:10px;height:30px" action="#{controler.actualizarCalificacion()}"></p:commandButton>
+		
+		</h:panelGrid>
+		</h:form>
+		<br/>
+	<h:form>	
+<div class="row">
+
+
+
+  <div class="col-9"><u><a href="#{facesContext.externalContext.requestContextPath}#{referencia.urlArchivo}" title="Ver Archivo">Ver Archivo</a></u></div>
+  
+  
+  <div class="col-3" >
+
+ 
+       <p:commandButton class="btn btn-success btn-lg" value="Add Lecturas" icon="ui-icon-folder-collapsed"  title="Anadir a Lecturas"  action="#{controler.insertarLectura()}"  update="messageId"></p:commandButton>
+ 
+
+   </div>
+  
+
+
+
+</div>
+  <p:messages id="messageId" closable="true" />
+
+
+</h:form>
+		
+		
+		
+	</h:column>
+	
+
+
+
+</h:dataTable>
+
+
+
+
+<div class="row">
+<div class="col-2"></div>
+<div class="col-3"><h4>Comentar </h4></div>
+</div>
+
+<center>
+<h:form>
+ <p:inputTextarea rows="4" cols="60" value="#{controler.newComentario.comentario}"/>
+ <br/>
+ <h:commandButton value="Añadir Comentario" class="btn btn-primary btn-sm" action="#{controler.insertarComentario()}" onclick="setTimeout('location.reload();', 1000);">
+  
+ </h:commandButton>
+
+
+</h:form>
+<br/>
+
+
+
+</center>
+<div class="row">
+<div class="col-3"></div>
+
+<div class="col-6">
+<h:form id="frmPrincipal">
+<p:dataTable id="tabla" value="#{controler.getComentarioArticulo(controler.id)}"  var="comentario" class="cell-border" styleClass="table-hover"  tableStyle="width:auto"    style="font-family: sans-serif; border: 2px solid black ; border-collapse: separate; font-size:small; background-color: #EAF7FC; background:#EAF7FC; " >
+ 
+  <p:column>
+ <h:commandButton action="#{controler.eliminarComentario(comentario.id)}" value="Eliminar" styleClass="btn btn-primary"/>
+  <br/>
+     <img src="imagenes/perfil.png"  alt="" />
+     <br/>
+     #{comentario.usuario.usrNombre}
+    </p:column>
+  
+    <p:column   style="background-color:#EAF7FC" >
+  <div class="row"> 
+  <div class="col-9">
+  #{comentario.comentario}
+  </div>
+  
+  <div class="col-3">
+ <div class="row">
+<div class="col-3"></div>
+
+<div class="col-6">
+<p:dialog id="dialogo2" modal="true" styleClass=" position:absolute;" appendTo="@(body)"  onShow="PF('wdialogo').initPosition()"  position="center center"   widgetVar="wdialogo" header="Nuevo Comentario"  resizable="false" closeOnEscape="true" draggable="false" >
+<h:form id="frmedita">
+<h:panelGrid columns="2">
+<h:outputLabel value="Comentario" for="txtComentario"/>
+<p:inputText id="txtComentario2" alt="ot" widgetVar="comen"  slotChar="" required="true" value="#{controler.obtenerComentario(comentario.id)}"></p:inputText>
+
+<p:commandButton ajax="true" update="frmPrincipal" process="@all" value="ok" actionListener="#{controler.modificaCome(comentario.id,comen)}" oncomplete="Testing.hide()"/>
+
+<p:commandButton value="Cancelar" onclick="PF('wdialogo').hide();" ></p:commandButton>
+<p:commandButton value="." onclick="obtiene2()" 
+></p:commandButton>
+</h:panelGrid>
+</h:form> 
+
+
+
+
+
+</p:dialog>
+</div>
+<div class="col-3"></div>
+</div>
+
+
+ <p:commandButton value="Editar" oncomplete="PF('wdialogo').show();" />
+  <h:commandButton action="#{controler.eliminarComentario(comentario.id)}" value="Eliminar" styleClass="btn btn-primary"/>
+  </div>
+  </div>
+    </p:column>
+    
+  </p:dataTable>
+  </h:form>
+</div>
+<div class="col-3"></div>
+</div>
+
+<br/>
+
+
+
+
+<p:dialog id="dialogo2" modal="true"  appendTo="@(body)"  onShow="PF('wdialogo').initPosition()"  position="center center"   widgetVar="wdialogo33" header="Nuevo Comentario"  resizable="false" closeOnEscape="true" draggable="false" >
+<h:form>
+<p:inputText id="txtComentario33"   value="ooo"></p:inputText>
+
+<p:commandButton ajax="true" id="esto" value="ELemento 0"   onclick="obtiene2()"/>
+</h:form>
+</p:dialog>
+
+ <p:commandButton value="Editar" oncomplete="PF('wdialogo33').show();" id="otot" />
+
+
+<p:inputText  id="otro" value="chuc"></p:inputText> 
+<script type="text/javascript">
+function obtiene2(){
+
+
+	var com=document.getElementById('txtcomentario2').value;
+	
+	alert(com);
+	
+	
+}
+
+</script>
+
+
+
+
+
+</ui:define>
+
+</ui:composition>
+
+
+
+</html>

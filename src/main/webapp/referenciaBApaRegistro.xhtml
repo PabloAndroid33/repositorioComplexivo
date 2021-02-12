@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+	
+	
+	
+	
+	
+	<ui:composition template="/templates/plantillaBibliotecario.xhtml">
+			<ui:define name="pageTitle">Registro Referencias APA</ui:define>
+			<ui:define name="pageHeader">Registro Referencias APA</ui:define>
+					<ui:define name="contenido2">
+						<center>
+							<center><h2>Registro Referencias APA</h2></center>
+								<h:form enctype="multipart/form-data">
+								<h:panelGrid columns="2">
+								   	<h:outputLabel value="Nombre de Articulo:" />
+								   	<h:inputText value="#{controler.newReferencia.nombre}" styleClass="form-control"/>
+									<h:outputLabel value="Referencia APA:" />
+									<h:inputTextarea value="#{controler.newReferencia.referencia}" styleClass="form-control" cols="30" rows="3" />
+								  	
+								  	<h:outputLabel value="PDF a Subir:" />   	 	
+									
+                         			
+                         			<h:panelGrid columns="2"><p:fileUpload id="msg1" invalidFileMessage="JournalDev: Invalid File Type"  value="#{controler.archivo}" mode="simple" skinSimple="true" 
+                  					 allowTypes="/(\.|\/)(pdf)$/"  fileUploadListener="#{controler.handleFileUpload}" update="msg"/>
+                  					<p:growl widgetVar="growl" id="msg" showDetail="true"/></h:panelGrid>
+									
+									<h:outputLabel value="Resumen:" />
+								   	<h:inputTextarea value="#{controler.newReferencia.resumen}" styleClass="form-control" cols="30" rows="3" />	
+								 
+								
+									</h:panelGrid>
+									<br/>
+									<h:commandButton action="#{controler.insertarReferenciaBiblio()}" value="Registrar" styleClass="btn btn-primary"/>
+									</h:form>   
+											
+							
+								<script type="text/javascript">
+		(function($) {
+		    var originalShowFunction = $.fn.show;
+		    $.fn.show = function() {
+		        this.trigger("show");
+		        return originalShowFunction.apply(this, arguments);
+		    };
+		})(jQuery);
+		$(document).on("show", ".ui-fileupload-content>.ui-messages", function() {
+		    $(this).children().hide().find("li").each(function(index, message) {
+		        var $message = $(message);
+		        PF("growl").renderMessage({
+		            summary: $(".ui-messages-error-summary", $message).text(),
+		            detail: $(".ui-messages-error-detail", $message).text()
+		        });
+		    });
+		}); 
+</script>
+						
+							
+								
+						</center> 
+					</ui:define>
+	</ui:composition>
+</html>

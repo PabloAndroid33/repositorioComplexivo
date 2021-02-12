@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+	<!-- 
+		Replace path to template, title, header and body
+		with actual data.
+	 -->
+	<head>
+	 	<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+	</head> 
+	<ui:composition template="/templates/plantilla.xhtml">
+			<ui:define name="pageTitle">Ingreso Datos Categoria</ui:define>
+			<ui:define name="pageHeader">Ingreso Categoria</ui:define>
+					<ui:define name="contenido2">
+						<center>
+							<center><h2>Ingreso Datos Usuario Bibliotecario</h2></center>
+								<h:form >
+								<h:panelGrid columns="3">
+								   	<h:outputLabel value="Nombre de Usuario:" />
+								   	<h:inputText id="nombre" value="#{controler.newUsuario.nombre}" styleClass="form-control"/>
+								   	<h:message for="nombre" errorClass="invalid" />
+									<h:outputLabel value="Apellido de Usuario:" />
+								   	<h:inputText id="apellido" value="#{controler.newUsuario.apellido}" styleClass="form-control"/>
+								   	<h:message for="apellido" errorClass="invalid" />
+								   	<h:outputLabel value="Email de Usuario:" />
+								   	<h:inputText id="email" value="#{controler.newUsuario.usrCorreo}" styleClass="form-control"/>
+										<h:message for="email" errorClass="invalid" />
+									
+									<h:outputLabel value="Password de Usuario:" />
+								   <h:inputSecret id="password" value="#{controler.newUsuario.usrPassword}" required="true" styleClass="form-control" requiredMessage="Ingrese Password, no debe ser nulo">
+       								<f:validator validatorId="confirmPasswordValidator" />
+       								<f:attribute name="confirm" value="#{confirmPassword.submittedValue}" />
+       								<f:ajax event="blur" execute="password confirm" render="m_password" />
+									</h:inputSecret>
+									<h:message id="m_password" for="password" errorClass="invalid"/>
+								   	
+								   	
+								   	
+								   	
+								   	
+								   	
+								   	<h:outputLabel value="Repita Password:" />
+								   	<h:inputSecret id="confirm" binding="#{confirmPassword}" required="true" styleClass="form-control" requiredMessage="Ingrese Password, no debe ser nulo">
+       								<f:ajax event="blur" execute="password confirm" render="m_password m_confirm" />
+									</h:inputSecret>
+									<h:message id="m_confirm" for="confirm" errorClass="invalid"/>
+								   	
+								   	<h:outputLabel value="User de Usuario:" />
+								   	
+								   	<h:inputText id="user" value="#{controler.newUsuario.usrNombre}" styleClass="form-control"/>
+								   	<h:message for="user" errorClass="invalid" />
+									<h:outputLabel value="Telefono de Usuario:" />
+								   	<h:inputText id="tele" value="#{controler.newUsuario.telefono}" styleClass="form-control"/>	
+									<h:message for="tele" errorClass="invalid" />	   						   		   
+								</h:panelGrid>
+									<br/>
+									
+									<h:commandButton action="#{controler.insertarUsuarioBiblio()}" value="Registrar" styleClass="btn btn-primary"/>
+								
+								</h:form>   
+						</center> 
+					</ui:define>
+	</ui:composition>
+</html>

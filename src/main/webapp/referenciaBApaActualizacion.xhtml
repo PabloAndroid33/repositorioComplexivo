@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<head>
+<f:viewParam name="id" value="#{controler.id}"></f:viewParam>
+		<f:viewAction action="#{controler.loadDatosReferencia()}"/>
+<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+
+</head>
+
+<ui:composition template="/templates/plantillaBibliotecario.xhtml">
+<ui:define name="pageTitle">Actualizar Referencia APA</ui:define>
+			
+		
+			
+<ui:define name="contenido2">
+
+<center><h2>Actualizar Referencia APA</h2>
+
+<h:form >
+<h:dataTable value="#{controler.listReferencia}" var="referencia" class="table">
+
+    <h:column>
+    <f:facet name="header">Id</f:facet>
+    #{referencia.id}
+    </h:column>
+    <h:column>
+    <f:facet name="header">Nombre</f:facet>
+    #{referencia.nombre}
+    </h:column>
+   
+    
+	
+	
+    <h:column>
+    <f:facet name="header">Resumen</f:facet>
+    #{referencia.resumen}
+    </h:column>
+   
+    <h:column>
+    <f:facet name="header">URL PDF</f:facet>
+    #{referencia.urlArchivo}
+    </h:column>
+   
+<h:column>
+	<f:facet name="header">Acciones</f:facet>
+    <h:commandButton action="#{controler.editarReferencia(referencia.id)}" value="Actualizar" styleClass="btn btn-primary"/>
+	</h:column>	
+
+</h:dataTable>
+
+</h:form>   
+
+</center>
+</ui:define>
+
+</ui:composition>
+
+
+
+</html>

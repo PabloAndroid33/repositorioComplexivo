@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="test" value="true"/>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
+		<attributes>
+			<attribute name="test" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="C:/Program Files/Java/jdk1.8.0_281/javafx-src.zip"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="src/main/java/lib/javax.servlet-api-3.0.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="src/main/java/lib/commons-fileupload-1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="src/main/java/lib/primefaces-8.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/TESIS REMIGIO FINAL/Programas Desarollados/SistemaWebSociedadLector/jython-standalone-2.7.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/TESIS REMIGIO FINAL/Programas Desarollados/SistemaWebSociedadLector/javalib_native0.2_2.11-0.2.1.jar" sourcepath="C:/Users/pbsig/.m2/repository/org/scala-native/javalib_native0.2_2.11/0.2.1/javalib_native0.2_2.11-0.2.1-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/TESIS REMIGIO FINAL/Programas Desarollados/SistemaWebSociedadLector/nativelib_native0.2_2.11-0.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/TESIS REMIGIO FINAL/Programas Desarollados/SistemaWebSociedadLector/scala-library-2.11.11.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/TESIS REMIGIO FINAL/Programas Desarollados/SistemaWebSociedadLector/src/main/java/lib/primefaces-5.2.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

@@ -1,0 +1,113 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<title>Login V15</title>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="resources/lectorLogin/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="resources/lectorLogin/vendor/bootstrap/css/bootstrap.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="resources/lectorLogin/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="resources/lectorLogin/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="resources/lectorLogin/vendor/animate/animate.css"/>
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="resources/lectorLogin/vendor/css-hamburgers/hamburgers.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="resources/lectorLogin/vendor/animsition/css/animsition.min.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="resources/lectorLogin/vendor/select2/select2.min.css"/>
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="resources/lectorLogin/vendor/daterangepicker/daterangepicker.css"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="resources/lectorLogin/css/util.css"/>
+	<link rel="stylesheet" type="text/css" href="resources/lectorLogin/css/main.css"/>
+<!--===============================================================================================-->
+
+<!--===============================================================================================-->
+	<script src="resources/lectorLogin/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="resources/lectorLogin/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="resources/lectorLogin/vendor/bootstrap/js/popper.js"></script>
+	<script src="resources/lectorLogin/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="resources/lectorLogin/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="resources/lectorLogin/vendor/daterangepicker/moment.min.js"></script>
+	<script src="resources/lectorLogin/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="resources/lectorLogin/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+
+
+
+</h:head>
+
+
+<body>
+
+<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" style="background-image: url(resources/lectorLogin/images/bg-01.jpg);">
+					<span class="login100-form-title-1">
+						Sign In
+					</span>
+				</div>
+<center><font color="red">No tiene Permiso Para esta Pagina. Registre Usuario?	</font></center>
+				<h:form class="login100-form validate-form">
+					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+						<span class="label-input100">Correo</span>
+						
+						<h:inputText value="#{controler.usuarioVerificar.usrCorreo}" 
+							class="input100"  a:placeholder="Correo"/>
+						
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
+						<span class="label-input100">Password</span>
+						
+						<h:inputSecret  value="#{controler.usuarioVerificar.usrPassword}" id="txtPasswordUsr"
+							class="input100" size="40" a:placeholder="Password"/>
+						
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="flex-sb-m w-full p-b-30">
+						<div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me"/>
+							<h:messages globalOnly="true"/>
+						</div>
+
+						<div>
+							<a href="#" class="txt1">
+								Forgot Password?
+							</a>
+						</div>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<h:commandButton action="#{controler.validarUsuarioLector()}" value="Logearse" styleClass="login100-form-btn"/>
+						<p:commandButton action="#{controler.botonIngresarUsuarioLector()}" value="Nuevo Usuario" styleClass="login100-form-btn" onclick="location.href='lectorRegistro.xhtml';"/>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</div>
+</body>
+
+
+
+</html>

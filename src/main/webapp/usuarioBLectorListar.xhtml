@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+
+</head>
+
+<ui:composition template="/templates/plantillaBibliotecario.xhtml">
+<ui:define name="pageTitle">Listado de Usuarios</ui:define>
+			
+		
+			
+<ui:define name="contenido2">
+
+<center><h2>Listado Usuario Bibliotecario</h2>
+
+
+<h:form >
+<h:dataTable value="#{controler.ltsUsuarioLector}" var="usuario" class="table">
+
+    <h:column>
+    <f:facet name="header">Id</f:facet>
+    #{usuario.idUsuario}
+    </h:column>
+   <h:column>
+    <f:facet name="header">Nombre</f:facet>
+    #{usuario.nombre}
+    </h:column>
+    <h:column>
+    <f:facet name="header">Apellido</f:facet>
+    #{usuario.apellido}
+    </h:column>
+    
+    <h:column>
+    <f:facet name="header">Correo</f:facet>
+    #{usuario.usrCorreo}
+    </h:column>
+    <h:column>
+    <f:facet name="header">Password</f:facet>
+    #{usuario.usrPassword}
+    </h:column>
+    
+    <h:column>
+    <f:facet name="header">Telefono</f:facet>
+    #{usuario.telefono}
+    </h:column>
+    <h:column>
+    <f:facet name="header">Usuario</f:facet>
+    #{usuario.usrNombre}
+    </h:column>
+	<h:column>
+    <f:facet name="header">Rol</f:facet>
+    #{usuario.usrRol}
+    </h:column>
+
+</h:dataTable>
+
+</h:form>   
+
+</center>
+</ui:define>
+
+</ui:composition>
+
+
+
+</html>

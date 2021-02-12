@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+
+</head>
+
+<ui:composition template="/templates/plantilla.xhtml">
+<ui:define name="pageTitle">Listado Calificaciones</ui:define>
+			
+		
+			
+<ui:define name="contenido2">
+
+<center><h2>Listado Calificaciones</h2>
+
+
+<h:form >
+<h:dataTable value="#{controler.listCalificacion}" var="calificacion" class="table">
+
+    <h:column>
+    <f:facet name="header">Id</f:facet>
+    #{calificacion.id}
+    </h:column>
+   <h:column>
+    <f:facet name="header">Valor Pelicula</f:facet>
+    #{calificacion.valor}
+    </h:column>
+   
+   <h:column>
+    <f:facet name="header">Nombre Pelicula</f:facet>
+    #{calificacion.pelicula.nombre}
+    </h:column>
+    <h:column>
+    <f:facet name="header">Nombre Usuario</f:facet>
+    #{calificacion.usuario.nombre}
+    </h:column>
+    
+   
+
+</h:dataTable>
+
+</h:form>   
+
+</center>
+</ui:define>
+
+</ui:composition>
+
+
+
+</html>

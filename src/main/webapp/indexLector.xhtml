@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+<link rel="icon" href="templates/paginaLector/images/fevicon/fevicon.png" type="image/gif" />
+
+<!-- bootstrap css -->
+<link rel="stylesheet" href="templates/paginaLector/css/bootstrap.min.css"/>
+<!-- Site css -->
+<link rel="stylesheet" href="templates/paginaLector/css/style.css"/>
+<!-- responsive css -->
+<link rel="stylesheet" href="templates/paginaLector/css/responsive.css"/>
+<!-- colors css -->
+<link rel="stylesheet" href="templates/paginaLector/css/colors1.css"/>
+<!-- custom css -->
+
+<!-- wow Animation css -->
+
+<!-- revolution slider css -->
+<link rel="stylesheet" type="text/css" href="templates/paginaLector/revolution/css/settings.css"/>
+<link rel="stylesheet" type="text/css" href="templates/paginaLector/revolution/css/layers.css"/>
+<link rel="stylesheet" type="text/css" href="templates/paginaLector/revolution/css/navigation.css"/>
+<f:viewParam name="id" value="#{controler.id}"></f:viewParam>
+		<f:viewAction action="#{controler.loadDatosReferencia()}"/>
+</head>
+
+<ui:composition template="/templates/plantillaLector.xhtml">
+<ui:define name="pageTitle">Listado Rutas</ui:define>
+			
+		
+			
+<ui:define name="conteLector">
+
+<h4>Bienvenido Lector</h4>
+<h6>Saludo: Esta es una plataforma de comunidad de lectura que se centra en documentos
+de tipo APA, donde el lector podra:Visualizar,Comentar,Calificar y agregar a sus lectaras
+nuesrtros documentos, Gracias</h6>
+
+
+<h3><u>Biblioteca Sociedad Lector</u></h3>
+
+<br/>
+<br/>
+<h:form>
+<h:dataTable value="#{controler.listReferencia}" var="referencia" class="table">
+  <h:column>
+  <br/>
+     <a href="#{facesContext.externalContext.requestContextPath}#{referencia.urlArchivo}"><img src="imagenes/pdf.png" width="110" height="”130”" alt="" /></a>
+    </h:column>
+  
+    <h:column>
+   
+   <h4><h:commandLink action="#{controler.mostrarArticulo(referencia.id)}" >Nombre: #{referencia.nombre}</h:commandLink> </h4><br/>
+      #{referencia.resumen}
+    </h:column>
+    
+  </h:dataTable>
+</h:form>
+<br/>
+<br/>
+
+</ui:define>
+
+</ui:composition>
+
+
+
+</html>

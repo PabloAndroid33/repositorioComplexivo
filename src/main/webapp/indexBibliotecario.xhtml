@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+
+</head>
+
+<ui:composition template="/templates/plantillaBibliotecario.xhtml">
+<ui:define name="pageTitle">Inicio Usuario Bibliotecario: #{controler.newUsuarioB.usrNombre}</ui:define>
+			
+		
+			
+<ui:define name="contenido2">
+
+<center><h2>Bienvenido Bibliotecario: #{controler.newUsuarioB.usrNombre}</h2>
+
+<h:outputText value="Hello World"></h:outputText>
+</center>
+</ui:define>
+
+</ui:composition>
+
+
+
+</html>

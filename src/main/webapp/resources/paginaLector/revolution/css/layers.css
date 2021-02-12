@@ -1,0 +1,40 @@
+.tp-caption.NotGeneric-Title,.NotGeneric-Title
+{
+	background-color:transparent;
+	border-color:transparent;
+	border-radius:0 0 0 0;
+	border-style:none;
+	border-width:0;
+	color:rgba(255,255,255,1.00);
+	font-family:Raleway;
+	font-size:70px;
+	font-style:normal;
+	font-weight:800;
+	line-height:70px;
+	padding:10px 0;
+	text-decoration:none;
+}
+
+.tp-caption.NotGeneric-SubTitle,.NotGeneric-SubTitle
+{
+	background-color:transparent;
+	border-color:transparent;
+	border-radius:0 0 0 0;
+	border-style:none;
+	border-width:0;
+	color:rgba(255,255,255,1.00);
+	font-family:Raleway;
+	font-size:13px;
+	font-style:normal;
+	font-weight:500;
+	letter-spacing:4px;
+	line-height:20px;
+	padding:0;
+	text-align:left;
+	text-decoration:none;
+}
+
+
+
+
+
