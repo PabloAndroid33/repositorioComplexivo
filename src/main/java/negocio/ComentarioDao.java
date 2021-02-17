@@ -20,6 +20,13 @@ import modelo.Comentario;
 
 //import ec.edu.ups.ticketbus.modelo.Ruta;
 
+
+/** 
+ * Esta clase permite operar con la base
+ * de datos de la tabla Comentarios
+ *@autor Pablo Siguenza
+ 
+ */
 @Stateless
 @Startup
 public class ComentarioDao {

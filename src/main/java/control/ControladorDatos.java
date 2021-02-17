@@ -41,7 +41,7 @@ import org.primefaces.model.UploadedFile;
 import org.primefaces.shaded.commons.io.IOUtils;
 //import org.python.icu.text.RelativeDateTimeFormatter.Direction;
 
-import modelo.Calificacion;
+
 //import ec.edu.ups.wikidatups.modelo.Usuario;
 //import ec.edu.ups.wikidatups.negocio.GestorDAO;
 import modelo.Comentario;
@@ -51,7 +51,7 @@ import modelo.ReferenciaAPA;
 
 
 import modelo.Usuario;
-import negocio.CalificacionDao;
+
 import negocio.ComentarioDao;
 
 import negocio.LecturaDao;
@@ -59,6 +59,18 @@ import negocio.ReferenciaAPADao;
 
 import negocio.UsuarioDao;
 
+
+
+/** 
+ * Esta clase permite llamar 
+ * a los objetos Dao de las
+ * base da datos ademas proporciona 
+ * controlador Bean para que la 
+ * capa de Presentacion interactuen
+ * con los objetos de la capa modelo
+ *@autor Pablo Siguenza
+ 
+ */
 
 @ManagedBean (name="controler")
 @ViewScoped
@@ -83,12 +95,7 @@ public class ControladorDatos implements Serializable{
 	
 
 	
-	@Inject
-	private CalificacionDao daoCalificacion;
-	private Calificacion newCalificacion;
-	private List<Calificacion> listCalificacion;
-	
-/////////////////////////////////////////////////////////////	
+
 	@Inject
 	private ComentarioDao daoComentario;
 	private Comentario newComentario;
@@ -340,29 +347,11 @@ public class ControladorDatos implements Serializable{
 
 	
 	
-	public CalificacionDao getDaoCalificacion() {
-		return daoCalificacion;
-	}
+	
 
-	public void setDaoCalificacion(CalificacionDao daoCalificacion) {
-		this.daoCalificacion = daoCalificacion;
-	}
+	
 
-	public Calificacion getNewCalificacion() {
-		return newCalificacion;
-	}
-
-	public void setNewCalificacion(Calificacion newCalificacion) {
-		this.newCalificacion = newCalificacion;
-	}
-
-	public List<Calificacion> getListCalificacion() {
-		return listCalificacion;
-	}
-
-	public void setListCalificacion(List<Calificacion> listCalificacion) {
-		this.listCalificacion = listCalificacion;
-	}
+	
 	
 	
 
@@ -642,7 +631,11 @@ private static String getFilename(Part part) {
 
 
 
-
+/**
+ * Llama a DaoInsertar que 
+ * luego sera invocado por controlador
+ * en Vista InsertaReferencia
+ **/
 
 public String insertarReferencia() throws IOException, InterruptedException{
 
@@ -701,8 +694,11 @@ return "referenciaApaListar";
 }
 
 
-
-
+/**
+ * Llama a DaoInsertar que 
+ * luego sera invocado por controlador
+ * en Vista Insertar Referencia Bibliotecario
+ **/
 public String insertarReferenciaBiblio() throws IOException, InterruptedException{
 
 	
@@ -768,6 +764,9 @@ return "referenciaBApaListar";
 
 
 //////////////////////////////////////////////////////
+/**
+ * Ejecuta Python desde cmd
+ **/
 public  boolean conectaServidor() 
 {
 boolean var;
@@ -795,11 +794,14 @@ boolean var;
 
 
 
-
+/**
+ *Se conecta al servidor Socket 
+ *para ejecutar codigo Python
+ **/
 public  boolean mensaFromServidor()
 {
 	
-	for (int i = 1; i <= 600000; i++){ //borde de arriba
+	for (int i = 1; i <= 700000; i++){ //borde de arriba
         System.out.print("#"); 
    }
 	
@@ -850,10 +852,15 @@ public  boolean mensaFromServidor()
 }
 
 
-
+/**
+ * Lee el Documento de Keywoords
+ * coortandolas y guardandolas en un String
+ * que luego sera guardado en un Campo de Base de 
+ * Datos
+ **/
 public String cortaPalabras() 
 {
-	for (int i = 1; i <= 2000000; i++){ //borde de arriba
+	for (int i = 1; i <= 3000000; i++){ //borde de arriba
         System.out.print("#"); 
    }
 	
@@ -933,14 +940,14 @@ public String cortaPalabras()
     for (int i = 0; i <= 15; i++){ //borde de arriba
         
 		
-    	valor=valor+lineas.get(i)+", ";
+    	valor=valor+lineas.get(i)+";";
 		 //System.out.print(lineas.get(i)); 
 	   }
-    
+  //  .substring(0, cortaPalabras().length()-1)
     
    // return texto;
     System.out.println("PutoValor XXXXXXXXXXXZZZZZZZZZ" + valor);
-	return valor;
+	return valor.substring(0, valor.length()-1);
 	
 }
 
@@ -960,26 +967,38 @@ public String cortaPalabras()
 
 
 
-
+/**
+ *Actualiza la Referencia 
+ **/
 
 public String actualizarReferencia(int id){
 ReferenciaAPA pelicula =daoReferencia.leer(id);
 newReferencia=pelicula;
 return "referenciaApaRegistro";
 }
-
+/**
+ *Redirige a referencia
+ *segun cual se seleccione
+ **/
 public String editarReferencia(int codigo) {
 	
 	
 	return "referencia?faces-redirect=true&id="+codigo;
 }
 
+/**
+ * Muestra La referencia
+ * detasllado segun la referencia
+ * que se seleccione
+ **/
 public String mostrarArticulo(int codigo) {
 	
 	
 	return "lectorLibroDetalle?faces-redirect=true&id="+codigo;
 }
-
+/**
+ * Carga los Datos de Referencia
+ **/
 public void loadDatosReferencia() {
 	//System.out.println("codigo editar " + id);
 	if(id==0)
@@ -997,6 +1016,11 @@ public ReferenciaAPA getReferencia(int codigo) {
 	
 }
 
+/**
+ * Llama a DaoCargar que 
+ * luego sera invocado por controlador
+ * en Vista Caegar datos Referencia
+ **/
 public String cargarDatosReferencia() {
 	
 	try {
@@ -1011,7 +1035,11 @@ public String cargarDatosReferencia() {
 }
 
 
-
+/**
+ * Llama a DaoActualizar que 
+ * luego sera invocado por controlador
+ * en Vista Actualizar Calificacion Referencia
+ **/
 public String actualizarCalificacion() {
 	
 	try {
@@ -1081,7 +1109,11 @@ public String actualizarCalificacion() {
 }
 
 
-
+/**
+ * Llama a DaoInsertar que 
+ * luego sera invocado por controlador
+ * en Vista Eliminar Referencia
+ **/
 public String eliminarReferencia(int id){
 	//FaceUtils.getPath();
 	String var=daoReferencia.leer(id).getUrlArchivo();
@@ -1098,7 +1130,11 @@ return null;
 ////////////////////////////////////////////
 //Metodos Crud Usuario	
 
-
+/**
+ * Llama a DaoInsertar que 
+ * luego sera invocado por controlador
+ * en Vista Insertar Usuario Bibliotecario
+ **/
 public String insertarUsuarioBiblio() {
 	newUsuario.setUsrRol("biblio"); 
 //	newUsuario.setUsrTopic(false);
@@ -1109,6 +1145,11 @@ public String insertarUsuarioBiblio() {
 	return "usuarioAdministradorListar";
 }
 
+/**
+ * Llama a DaoInsertar que 
+ * luego sera invocado por controlador
+ * en Vista Insertar Usuario Lector
+ **/
 public String insertarUsuarioLector() {
 	newUsuarioLector.setUsrRol("lector"); 
 //	newUsuario.setUsrTopic(false);
@@ -1119,12 +1160,15 @@ public String insertarUsuarioLector() {
 	return "lectorLogin";
 }
 
+
 public String botonIngresarUsuarioLector() {
 
 	return "lectorRegistro";
 }
 
-
+/**
+ * Carga los datos del Usuario
+ **/
 public void loadDatosUsuario() {
 	System.out.println("codigo editar " + id);
 	if(id==0)
@@ -1135,20 +1179,30 @@ public void loadDatosUsuario() {
 	
 }
 
-
+/**
+ * Obtiene Usuario de acuerdo al id
+ **/
 public Usuario getUsuario(int codigo) {
 	Usuario aux = dao.leer(codigo);
 	
 	return aux;
 	
 }
-
+/**
+ * Redirige a UsuarioEditar de acuerdo al
+ * usuario que se aya seleccionado a editar
+ **/
 public String editarUsuario(int codigo) {
 	
 	
 	return "usuario?faces-redirect=true&id="+codigo;
 }
 
+/**
+ * Llama a DaoCargar que 
+ * luego sera invocado por controlador
+ * en Vista Cargar Lectura
+ **/
 public String cargarDatos() {
 	
 	try {
@@ -1162,7 +1216,11 @@ public String cargarDatos() {
 	return "usuarioAdministradorActualizacion";
 }
 
-
+/**
+ * Llama a DaoEliminar que 
+ * luego sera invocado por controlador
+ * en Vista Eliminar Usuario
+ **/
 public String eliminarUsuario(int id){
 dao.borrar(id);
 init();
@@ -1171,6 +1229,12 @@ return null;
 
 
 ////////////////////////////
+
+/**
+ * Iniciar Sesion de  Usuario Lector
+ * ve si usuario y password son correctos 
+ * para acceder como Usuario lector 
+ **/
 public String validarUsuarioLector(){
 	String destino="";
 	System.out.println("////////"+usuarioVerificar.getUsrCorreo());
@@ -1223,7 +1287,9 @@ public String validarUsuarioLector(){
 ////////////////////////////
 
 
-
+/**
+ * Iniciar Sesion de  Usuario Administrativo 
+ **/
 public String validarAdmin() throws IOException{
 	
 	FacesMessage message2 = null;
@@ -1296,7 +1362,10 @@ public String validarAdmin() throws IOException{
 }
 
 
-
+/**
+ * Permite ver si sesion esta abierta
+ * o si no redirige a pagina verificar sesion
+ **/
 public void verificarSesion() 
 {
 	try {
@@ -1314,7 +1383,10 @@ public void verificarSesion()
 		//Algun registro de eror
 	}
 }
-
+/**
+ * Permite cerrar la sesion a Usuario Administrativo
+ * accediendo a la pagina usuarioLogin
+ **/
 public String cerrarSesion()
 {
 	//FacesContext.getCurrentInstance().getExternalContext().redirect("usuarioLogin");
@@ -1341,7 +1413,10 @@ public void verificarSesionLector()
 	}
 }
 
-
+/**
+ * Permite cerrar la sesion a Usuario Lector
+ * accediendo a la pagina LectorLogin
+ **/
 
 public String cerrarSesionLector()
 {
@@ -1414,7 +1489,11 @@ public String getAccion() {
 public void setAccion(String accion) {
 	this.accion = accion;
 }
-
+/**
+ * Llama a DaoInsertar que 
+ * luego sera invocado por controlador
+ * en Vista Insertar Comentario
+ **/
 public String insertarComentario(){
 
 	//System.out.println("Estamos aqui");
@@ -1429,7 +1508,11 @@ public String insertarComentario(){
 	
 
 }
-
+/**
+ * Llama a DaoEliminar que 
+ * luego sera invocado por controlador
+ * en Vista Eliminar Comentario
+ **/
 public String eliminarComentario(int id){
 	//FaceUtils.getPath();
 	System.out.println("Estamos aqui XXXXXXXXXXXXXPUXXXX");
@@ -1439,6 +1522,11 @@ init();
 return "lectorLibroDetalle?faces-redirect=true&id="+id;
 }
 
+/**
+ * Llama a DaoModificar que 
+ * luego sera invocado por controlador
+ * en Vista Modificar Comentario
+ **/
 public String modificaCome(int id,String comentario) {
 	
 	try {
@@ -1474,7 +1562,11 @@ public void mostrarComentario()
 
 ///////////////////////////////////
 
-
+/**
+ * Llama a DaoInsertar que 
+ * luego sera invocado por controlador
+ * en Vista Insertar Lectura
+ **/
 public String insertarLectura(){
 
 	//System.out.println("Estamos aqui");
@@ -1537,7 +1629,11 @@ public String insertarLectura(){
 	
 
 }
-
+/**
+ * Llama a DaoEliminar que 
+ * luego sera invocado por controlador
+ * en Vista Eliminar Lectura
+ **/
 public String eliminarLectura(int id){
 	//FaceUtils.getPath();
 	

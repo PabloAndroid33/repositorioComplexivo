@@ -10,6 +10,13 @@ import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
+
+/** 
+ * Esta clase la Utilizara
+ * FileUploadView donde define los metodos
+ * de carga de archivo
+ 
+ */
 @ManagedBean
 @SessionScoped
 public class FileUploadView {

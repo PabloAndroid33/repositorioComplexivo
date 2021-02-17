@@ -13,6 +13,13 @@ import modelo.Usuario;
 
 //import ec.edu.ups.ticketbus.modelo.Ruta;
 
+
+/** 
+ * Esta clase permite operar con la base
+ * de datos de la tabla Usuario
+ *@autor Pablo Siguenza
+ 
+ */
 @Stateless
 public class UsuarioDao {
 

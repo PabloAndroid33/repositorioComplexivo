@@ -37,12 +37,12 @@ def sube(nombrearchivo):
 	salida=open(nombrearchivo+".txt","wb")
 	for pagina in doc:
 		texto=pagina.getText().encode("utf8")
-		salida.write(texto)
+		salida.write(texto.lower())
 		salida.write(b"\n-----\n")
 	salida.close()
 
 	with open(nombrearchivo+'.txt','r',encoding='UTF8') as archivo:
-		texto = archivo.read()
+		texto = archivo.read();
 	
 
 	
@@ -50,7 +50,7 @@ def sube(nombrearchivo):
 
 	
 
-	stop_words = set(stopwords.words('spanish'))
+	stop_words = set(stopwords.words(fileids=('english', 'spanish')))
 
 	word_tokens=word_tokenize(texto)
 

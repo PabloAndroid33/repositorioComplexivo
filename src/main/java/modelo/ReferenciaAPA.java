@@ -23,7 +23,13 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
+/** 
+ * Esta clase permite definir una Referencia
+ * y generar una basa de Datos tbl_referenciaApa
+ * por medio de JPA
+ *@autor Pablo Siguenza
+ 
+ */
 
 @Entity
 @Table(name="tbl_referenciaApa")
@@ -70,48 +76,69 @@ public class ReferenciaAPA {
 	private float calificacionTotal;
 
 	
-	
+	/**
+	 * Recupera el valor id
+	 * @return - devuelve el id "Entero"
+	 **/
 	public int getId() {
 		return id;
 	}
 
 
 
-
+	/**
+	 * Este metodo estable el atributo id
+	 * @param id - valor id de Referencia 
+	 **/
 	public void setId(int id) {
 		this.id = id;
 	}
 
 
 
-
+	/**
+	 * Recupera el valor Nombre
+	 * @return - devuelve el Nombre "String"
+	 **/
 	public String getNombre() {
 		return nombre;
 	}
 
 
 
-
+	/**
+	 * Este metodo estable el atributo nombre
+	 * @param nombre - valor nombre de la Referencia 
+	 **/
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
 
 
-
+	/**
+	 * Recupera el valor Referencia APA
+	 * @return - devuelve la Referencia APA "String"
+	 **/
 	public String getReferencia() {
 		return referencia;
 	}
 
 
-
+	/**
+	 * Este metodo estable el atributo referencia
+	 * @param referencia - valor referencia en formato APA de la Referencia 
+	 **/
 
 	public void setReferencia(String referencia) {
 		this.referencia = referencia;
 	}
 
 
-
+	/**
+	 * Recupera el valor de la URL
+	 * @return - devuelve la URL "String"
+	 **/
 
 	public String getUrlArchivo() {
 		return urlArchivo;
@@ -119,7 +146,10 @@ public class ReferenciaAPA {
 
 
 
-
+	/**
+	 * Este metodo estable el atributo urlArchivo
+	 * @param urlArchivo - valor URL-->C://Archivo//archivo.pdf... de la Referencia 
+	 **/
 	public void setUrlArchivo(String urlArchivo) {
 		this.urlArchivo = urlArchivo;
 	}
@@ -140,20 +170,29 @@ public class ReferenciaAPA {
 
 
 
-
+	/**
+	 * Recupera el valor de las Keywords
+	 * @return - devuelve las Keywords "String"
+	 **/
 	public String getKeywords() {
 		return keywords;
 	}
 
 
-
+	/**
+	 * Este metodo estable el atributo de las Keywords
+	 * @param keywords - valor de todas las Keywords de la Referencia 
+	 **/
 
 	public void setKeywords(String keywords) {
 		this.keywords = keywords;
 	}
 
 
-
+	/**
+	 * Recupera el valor de la 	Calificacion
+	 * @return - devuelve el Nombre "String"
+	 **/
 
 	public Integer getCalificacion() {
 		return Calificacion;
@@ -161,13 +200,19 @@ public class ReferenciaAPA {
 
 
 
-
+	/**
+	 * Este metodo estable el atributo Calificacion
+	 * @param calificacion - valor de la Calificacion de la Referencia 
+	 **/
 	public void setCalificacion(Integer calificacion) {
 		Calificacion = calificacion;
 	}
 
 
-
+	/**
+	 * Recupera el valor de la cantidad de calificaciones 
+	 * @return - devuelve la cantidad de calificaciones "Entero"
+	 **/
 
 	public int getNumCalifica() {
 		return numCalifica;
@@ -175,13 +220,19 @@ public class ReferenciaAPA {
 
 
 
-
+	/**
+	 * Este metodo estable el atributo numCalifica
+	 * @param numCalifica - valor de la cantidad de todas las Calificacion de la Referencia 
+	 **/
 	public void setNumCalifica(int numCalifica) {
 		this.numCalifica = numCalifica;
 	}
 
 
-
+	/**
+	 * Recupera el valor de la Sumatoria de todas las Calificaciones
+	 * @return - devuelve la suma de todas las calificaciones "Entero"
+	 **/
 
 	public int getSumatoria() {
 		return sumatoria;
@@ -189,13 +240,19 @@ public class ReferenciaAPA {
 
 
 
-
+	/**
+	 * Este metodo estable el atributo sumatoria
+	 * @param sumatoria - valor de la suma de todas las Calificacion de la Referencia 
+	 **/
 	public void setSumatoria(int sumatoria) {
 		this.sumatoria = sumatoria;
 	}
 
 
-
+	/**
+	 * Recupera el valor de la Calificacion total--> la suma total promediada
+	 * @return - devuelve la Calificacion Total "Entero"
+	 **/
 
 	public float getCalificacionTotal() {
 		return calificacionTotal;
@@ -203,7 +260,10 @@ public class ReferenciaAPA {
 
 
 
-
+	/**
+	 * Este metodo estable el atributo calificacionTotal
+	 * @param calificacionTotal - valor de el promedio de todas las Calificaciones de la Referencia 
+	 **/
 	public void setCalificacionTotal(float calificacionTotal) {
 		this.calificacionTotal = calificacionTotal;
 	}

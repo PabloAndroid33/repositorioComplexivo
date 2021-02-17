@@ -11,26 +11,129 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-import modelo.Calificacion;
+
+import modelo.Lectura;
 
 //import modelo.CarritoDetalle;
 
 //import modelo.Categoria;
 import modelo.ReferenciaAPA;
 import modelo.Usuario;
-
-
-
-
+import negocio.LecturaDao;
 //import negocio.DirectorDao;
 import negocio.ReferenciaAPADao;
 import negocio.UsuarioDao;
 
 
-//Path donde se ejecutar los servicio web
-@Path("/servicio")
-public class CategoriaRest {
 
+/** 
+ * Esta clase define los Servicios Web Rest
+ *para que luego puedan ser accedidos desde
+ *aplicacion movil
+ 
+ */
+@Path("/servicio")
+public class ServiciosRest {
+	
+	@Inject
+	private UsuarioDao daoU;
+	
+	@Inject
+	private ReferenciaAPADao daoR;
+	
+	@Inject
+	private LecturaDao daoL;
+	
+	
+	
+	public UsuarioDao getDaoU() {
+		return daoU;
+	}
+
+	public void setDaoU(UsuarioDao daoU) {
+		this.daoU = daoU;
+	}
+	
+	
+	
+	
+	public ReferenciaAPADao getDaoR() {
+		return daoR;
+	}
+
+	public void setDaoR(ReferenciaAPADao daoR) {
+		this.daoR = daoR;
+	}
+
+	public LecturaDao getDaoL() {
+		return daoL;
+	}
+
+	public void setDaoL(LecturaDao daoL) {
+		this.daoL = daoL;
+	}
+
+	@GET
+	@Path("listado")
+	@Produces("application/json")
+	public List<Usuario> listar(@QueryParam("filtro") String filtro){
+		//return dao.getPersonasPorNombre(filtro);
+		
+		return daoU.getUsuariosLector();
+		
+		//return
+	}
+	
+	
+
+	
+	@POST
+	@Path("/guardarusuario")
+	@Produces("application/json")
+	@Consumes("application/json")
+   public Respuesta guardarUsuario(Usuario usu)
+   {
+		Respuesta res=new Respuesta();
+		try {
+		daoU.insertarUsuario(usu);
+		res.setCodigo(1);
+		res.setMensaje("Registro de Usuario a sido Satisfactorio");
+		
+		}catch(Exception e)
+		{
+			res.setCodigo(-1);
+			res.setMensaje("Error en Registro de Usuario");
+		}
+		return res;
+   }
+	@GET
+	@Path("/listadocumentopuntuacion")
+	@Produces("application/json")
+   public List<ReferenciaAPA> listarReferenciasOrdenadas()
+   {
+		List<ReferenciaAPA> referencia=daoR.getReferenciaOrdenada();
+		return referencia;
+   }
+	
+	@GET
+	@Path("/listakeywords")
+	@Produces("application/json")
+   public List<ReferenciaAPA> listarReferenciasKeywords()
+   {
+		List<ReferenciaAPA> referencia=daoR.getReferenciaKeywords();
+		return referencia;
+   }
+	
+	
+	
+	@GET
+	@Path("/listalecturas")
+	@Produces("application/json")
+   public List<Lectura> listarLecturas(@QueryParam("filtro") int filtro)
+   {
+		List<Lectura> referencia=daoL.getLecturaUsuarioRef(filtro);
+		return referencia;
+   }
 //Declaracion de atributos de la clases utilizando  objeto para: CategoriaDao, UsuarioDao
 //y Categoria	
 	

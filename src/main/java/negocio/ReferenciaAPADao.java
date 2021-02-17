@@ -20,6 +20,12 @@ import modelo.Usuario;
 
 //import ec.edu.ups.ticketbus.modelo.Ruta;
 
+/** 
+ * Esta clase permite operar con la base
+ * de datos de la tabla Referencia
+ *@autor Pablo Siguenza
+ 
+ */
 @Stateless
 @Startup
 public class ReferenciaAPADao {
@@ -119,6 +125,23 @@ public class ReferenciaAPADao {
 		List<ReferenciaAPA> referencia = q.getResultList();
 		return referencia;
 	}
+	
+	public List<ReferenciaAPA> getReferenciaKeywords(){
+		String sql = "select r from ReferenciaAPA r";
+		Query q = em.createQuery(sql);
+		List<ReferenciaAPA> referencia = q.getResultList();
+		return referencia;
+	}
+	public List<ReferenciaAPA> getReferenciaKeywordsNativo(){
+		Query nativeQuery = em.createNativeQuery("select r.ref_id, unnest(string_to_array(r.keywords, ','))from tbl_referenciaapa r");
+	    
+	    List<ReferenciaAPA> results = nativeQuery.getResultList();
+	     
+	    return results;
+	}
+	
+	
+	
 	
 	
 	public List<ReferenciaAPA> getReferenciaPorAno(){

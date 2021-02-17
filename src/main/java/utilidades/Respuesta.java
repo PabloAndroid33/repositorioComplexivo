@@ -1,5 +1,11 @@
 package utilidades;
 
+
+/** 
+ * Da una respuesta a si es que
+ * se ejecuta o no el web service
+ 
+ */
 public class Respuesta {
 
 	private int codigo;

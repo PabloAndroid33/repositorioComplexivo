@@ -21,6 +21,12 @@ import modelo.Lectura;
 
 //import ec.edu.ups.ticketbus.modelo.Ruta;
 
+/** 
+ * Esta clase permite operar con la base
+ * de datos de la tabla Lectura
+ *@autor Pablo Siguenza
+ 
+ */
 @Stateless
 @Startup
 public class LecturaDao {
@@ -111,6 +117,15 @@ public class LecturaDao {
 		List<Lectura> lectura = q.getResultList();
 		return lectura;
 	}
+	
+	public List<Lectura> getLecturaUsuarioRef(int id){
+		String sql = "SELECT r FROM Lectura l, ReferenciaAPA r where l.referencia=r.id and l.usuario="+id;
+		System.out.println("ESTA ES LA CONSULTAXXXXXXXXXXXXX ....." + sql);
+		Query q = em.createQuery(sql);
+		List<Lectura> lectura = q.getResultList();
+		return lectura;
+	}
+	
 	
 	
 	public List<Comentario> getPeliculaPorAno(){

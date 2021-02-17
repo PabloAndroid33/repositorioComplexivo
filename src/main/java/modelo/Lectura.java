@@ -8,6 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
+/** 
+ * Esta clase permite definir una Lectura
+ * y generar una basa de Datos tbl_lectura
+ * por medio de JPA
+ *@autor Pablo Siguenza
+ 
+ */
 @Entity
 @Table(name="tbl_lectura")
 public class Lectura {
@@ -26,6 +34,11 @@ public class Lectura {
 		@ManyToOne
 		private ReferenciaAPA referencia;
 
+		
+		/**
+		 * Recupera el valor id
+		 * @return - devuelve el id "Entero"
+		 **/
 		public int getId() {
 			return id;
 		}

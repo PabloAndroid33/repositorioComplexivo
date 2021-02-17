@@ -1,5 +1,10 @@
 package modelo;
 
+/** 
+ * Esta clase Utilizada para respuesta
+ * de web service si se ejecutan
+ * o no los web service
+ */
 public class Respuesta {
 
 	private int codigo;

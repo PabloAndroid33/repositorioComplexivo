@@ -13,7 +13,13 @@ import javax.faces.webapp.UIComponentTag;
 import javax.servlet.ServletContext;   
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;   
-   
+ 
+/** 
+ * Esta clase define el directorio
+ * y configura para que un archivo pdf
+ * se guarde en 
+ 
+ */
 public class FaceUtils {   
     /**  
      * Get servlet context.  
