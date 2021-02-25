@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+<f:viewParam name="id" value="#{controler.id}"></f:viewParam>
+		<f:viewAction action="#{controler.loadDatosComentario()}"/>
+</head>
+
+<ui:composition template="/templates/plantilla.xhtml">
+<ui:define name="pageTitle">Actualizar Usuario Bibliotecario</ui:define>
+			
+		
+			
+<ui:define name="contenido2">
+
+<center><h2>Actualizar Datos Usuario</h2>
+
+<h:form>
+<h:dataTable id="tabla" value="#{controler.listReferencia}"  var="newComentario" class="cell-border" styleClass="table-hover"  tableStyle="width:auto"    style="font-family: sans-serif; border: 2px solid black ; border-collapse: separate; font-size:small; background-color: #EAF7FC; background:#EAF7FC; " >
+ 
+  <h:column>
+
+  <br/>
+     <img src="imagenes/perfil.png"  alt="" />
+     <br/>
+     #{newComentario.nombre}
+    </h:column>
+  
+    <h:column   style="background-color:#EAF7FC" >
+  
+  
+  #{newComentario.keywords}
+  
+  
+ 
+ 
+<br/>
+
+ 
+  
+  
+    </h:column>
+    
+  </h:dataTable>
+
+</h:form>   
+
+</center>
+</ui:define>
+
+</ui:composition>
+
+
+
+</html>

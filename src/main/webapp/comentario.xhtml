@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<head>
+
+<link rel="stylesheet" type="text/css" href="resources/css/style.css"/>
+	<f:metadata>
+		<f:viewParam name="id" value="#{controler.id}"></f:viewParam>
+		<f:viewAction action="#{controler.loadDatosComentario()}"/>
+	</f:metadata>
+
+
+</head>
+
+<ui:composition template="/templates/plantilla.xhtml">
+<ui:define name="pageTitle">Actualizar Comentario</ui:define>
+			
+		
+			
+<ui:define name="conteLector">
+
+<center><h2>Actualizar Datos Comentario</h2>
+
+<h:form>
+	<h:panelGrid columns="2">
+		<h:outputLabel value="Comentario:" />
+	<h:inputText value="#{controler.newComentario.comentario}" styleClass="form-control"/>
+									
+	
+		
+	
+	</h:panelGrid>
+	<br/>
+		<h:commandButton action="#{controler.cargarDatosComentario()}"  value="Actualizar"  styleClass="btn btn-primary"/>
+	
+	
+	
+
+	
+
+</h:form>
+
+
+</center>
+</ui:define>
+
+</ui:composition>
+
+
+
+</html>
