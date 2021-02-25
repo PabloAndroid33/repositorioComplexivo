@@ -21,18 +21,30 @@ import org.primefaces.model.UploadedFile;
 @SessionScoped
 public class FileUploadView {
 	
+	/**
+     * Atributo tipo Uploaded declarado
+     */
 	UploadedFile file;
 
-
+	/**
+	 * Recupera el valor id
+	 * @return - devuelve el objeto tipo UploadedFile
+	 **/
 	public UploadedFile getFile() {
 		return file;
 	}
 
-
+	/**
+	 * Este metodo estable el atributo file
+	 * @param file - valor uploaded a ser cargado
+	 **/
 	public void setFile(UploadedFile file) {
 		this.file = file;
 	}
-	
+	  /**  
+     * Metodo que carga el archivo hacia el servidor      
+     * @param e el Carga un archivo del tipo FileUploadEvent
+     */  
 	public void fileUploadListener(FileUploadEvent e){
 		// Get uploaded file from the FileUploadEvent
 		this.file = e.getFile();

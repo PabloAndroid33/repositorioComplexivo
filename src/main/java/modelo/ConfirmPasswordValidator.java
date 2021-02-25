@@ -16,7 +16,9 @@ import javax.faces.validator.ValidatorException;
  */
 @FacesValidator("confirmPasswordValidator")
 public class ConfirmPasswordValidator implements Validator {
-
+	/**  
+     * Metodo para validar que dos campos de password sean igualles 
+     */ 
        @Override
        
        

@@ -30,17 +30,16 @@
 		<h:outputLabel value="Nombre de Articulo:" />
 								   	<h:inputText value="#{controler.newReferencia.nombre}" styleClass="form-control"/>
 									<h:outputLabel value="Referencia APA:" />
-									<h:inputTextarea value="#{controler.newReferencia.referencia}" title="Dato" styleClass="form-control" cols="30" rows="3" />
+									<h:inputTextarea value="#{controler.newReferencia.referencia}" styleClass="form-control" cols="30" rows="3" />
 								  	
 								  	<h:outputLabel value="PDF a Subir:" />   	 	
 									
                          			
-                         			<h:panelGrid columns="2"><p:fileUpload id="msg1" label="CARGAR PDF" invalidFileMessage="JournalDev: Invalid File Type"  value="#{controler.archivoModifica}" mode="simple" skinSimple="true" 
-                  					 allowTypes="/(\.|\/)(pdf)$/"  fileUploadListener="#{controler.handleFileUpload}" update="msg"/>
-                  					<p:growl widgetVar="growl" id="msg" showDetail="true"/></h:panelGrid>
+                         			<p:fileUpload update="messages"  label="#{controler.newReferencia.urlArchivo}" messageTemplate="SELECCIONE TIPO CORECTO" value="#{controler.newReferencia.urlArchivo}" mode="simple" skinSimple="true" 
+                  					 allowTypes="/(\.|\/)(pdf)$/" />
                   				
 									
-									
+								
 	
 		
 	

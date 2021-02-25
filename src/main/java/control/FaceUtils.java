@@ -40,10 +40,10 @@ public class FaceUtils {
 		return (HttpSession)FacesContext.getCurrentInstance().getExternalContext().getSession(create);   
     } 
     /**  
-     * Get managed bean based on the bean name.  
+     * Obtenga managed bean .según el nombre  
      *   
-     * @param beanName the bean name  
-     * @return the managed bean associated with the bean name  
+     * @param beanName the nombre del bean 
+     * @return el managed bean asociado con el bean nombre  
      */   
     public static Object getManagedBean(String beanName) {   
         return getValueBinding(getJsfEl(beanName)).getValue(FacesContext.getCurrentInstance());   
@@ -56,36 +56,36 @@ public class FaceUtils {
     
        
     /**  
-     * Remove the managed bean based on the bean name.  
+     * Remueve el managed bean basado en el nombre del bean.  
      *   
-     * @param beanName the bean name of the managed bean to be removed  
+     * @param beanName el nombre del bean a ser eliminado  
      */   
     public static void resetManagedBean(String beanName) {   
         getValueBinding(getJsfEl(beanName)).setValue(FacesContext.getCurrentInstance(), null);   
     }   
        
     /**  
-     * Store the managed bean inside the session scope.  
+     * Almacene el bean administrado dentro del alcance de la sesión.  
      *   
-     * @param beanName the name of the managed bean to be stored  
-     * @param managedBean the managed bean to be stored  
+     * @param beanName el nombre del bean administrado que se almacenará
+     * @param managedBean the managed bean que se almacenará 
      */   
     public static void setManagedBeanInSession(String beanName, Object managedBean) {   
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(beanName, managedBean);   
     }   
        
     /**  
-     * Get parameter value from request scope.  
+     * Obtiene el valor del parámetro del alcance de la solicitud.  
      *   
-     * @param name the name of the parameter  
-     * @return the parameter value  
+     * @param name el nombre de el Parametro  
+     * @return el valor del Parametro 
      */   
     public static String getRequestParameter(String name) {   
         return (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(name);   
     }   
        
     /**  
-     * Add information message.  
+     * Agrega mensaje de informacion.  
      *   
      * @param msg the information message  
      */   
@@ -94,39 +94,39 @@ public class FaceUtils {
     }   
        
     /**  
-     * Add information message to a sepcific client.  
+     * Agregue un mensaje de información a un cliente específico. 
      *   
-     * @param clientId the client id   
-     * @param msg the information message  
+     * @param clientId el cliente id   
+     * @param msg el mensaje de información 
      */   
     public static void addInfoMessage(String clientId, String msg) {   
         FacesContext.getCurrentInstance().addMessage(clientId, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));   
     }   
        
     /**  
-     * Add error message.  
+     * Agrega un mensaje de error  
      *   
-     * @param msg the error message  
+     * @param msg el mensaje error 
      */   
     public static void addErrorMessage(String msg) {   
         addErrorMessage(null, msg);   
     }   
        
     /**  
-     * Add error message to a sepcific client.  
+     * Agregue un mensaje de error a un cliente específico.  
      *   
-     * @param clientId the client id   
-     * @param msg the error message  
+     * @param clientId el cliente id   
+     * @param msg el mensaje de error 
      */    
     public static void addErrorMessage(String clientId, String msg) {   
         FacesContext.getCurrentInstance().addMessage(clientId, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));   
     }   
        
     /**  
-     * Evaluate the integer value of a JSF expression.  
+     * Evalúe el valor entero de una expresión JSF.  
      *   
-     * @param el the JSF expression  
-     * @return the integer value associated with the JSF expression  
+     * @param el el JSF expresion 
+     * @return el valor entero asociado con la expresión JSF 
      */   
     public static Integer evalInt(String el) {   
         if (el == null) {   
@@ -178,7 +178,10 @@ public class FaceUtils {
         return FacesContext.getCurrentInstance().getApplication();
      } */
     
-    
+    /**  
+     * Captura el Path .  
+     * @return devuelve String del Path
+     */ 
     static String getPath() {   
        try {
     	   ServletContext ctx=(ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext();
