@@ -31,13 +31,18 @@ import modelo.Lectura;
 @Startup
 public class LecturaDao {
 
+	/**
+     * Objeto del tipo Entity manager para operaciones de "Ingreso, Lectura, Actualizacion y borrado"
+     */
 	@Inject
 	private EntityManager em;
 
 	
-	@Inject
-	private EntityManager conexion;
 
+	/**
+	 * Este metodo guarda una Lectura en caso que exista actualiza Lectura
+	 * @param lectura - objeto Lectura para ser guardado o actualizado
+	 **/
 	public void save(Lectura lectura){
 		if(em.find(Comentario.class, lectura.getId())==null)
 		//	logger.info("Entrando en la aplicacion "+pelicula.getCategoria().getId());
@@ -46,39 +51,11 @@ public class LecturaDao {
 			actualizar(lectura);
 	}
 	
-	public java.util.List<Comentario> getComentarioByRating(){
-		String sql="SELECT distinct p FROM Comentario p "
-				+ "join p.actor actor "
-				+ "join p.director director "
-				+ "join p.categoria categoria "
-				+ "order by p.rating desc";
-		Query query=conexion.createQuery(sql, Comentario.class);
-		List<Comentario> comentario= query.getResultList();
-		return comentario;
-	}
-
-	
-	
-	
-	public Optional<Comentario> saveC(Comentario comentario) {
-        try {
-            em.getTransaction().begin();
-            em.persist(comentario);
-            em.getTransaction().commit();
-            return Optional.of(comentario);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Optional.empty();
-    }
-	
-	
-	
-	
-	
-	
-	
-	public void insertar (Lectura lectura){
+	/**
+	 * Este metodo inserta una Lectura mediante JPA
+	 * @param lectura - objeto Lectura para ser guardado
+	 **/
+public void insertar (Lectura lectura){
 		
 		// Log.e(TAG, "Mensaje de error");
 		//em.persist(pelicula.set);
@@ -88,28 +65,44 @@ public class LecturaDao {
 		
 		//System.out.println("CHUCHA CHUCHA CHUAC "+pelicula.getNombre()+" Sinopsis "+pelicula.getSinopsis()+" Foranea "+pelicula.getCategoria());
 	}
-	
+/**
+ * Este metodo actualiza una Lectura mediante JPA
+ * @param lectura - objeto Lectura para ser actualizado
+ **/
 	public void actualizar (Lectura lectura){
 		em.merge(lectura);
 	}
-	
+	/**
+	 * Este metodo borra una Lectura mediante JPA
+	 * @param id - entero id utilizado para borrar Lectura
+	 **/
 	public void borrar (int id){
 		Lectura lectura= em.find(Lectura.class, id);
 		em.remove(lectura);
 	}
-	
+	/**
+	 * Este metodo lee una Lectura mediante JPA
+	 * @param id - entero id utilizado para leer Lectura
+	 **/
 	public Lectura leer (int id){
 		Lectura lectura = em.find(Lectura.class, id);
 		return lectura;
 	}
-	
+	/**
+	 * Este metodo lista todas las Lecturas mediante JPA
+	 * @return - devuelve una lista de todas las Lecturas
+	 **/
 	public List<Lectura> getLectura(){
 		String sql = "SELECT l FROM Lectura l ";
 		Query q = em.createQuery(sql);
 		List<Lectura> lectura = q.getResultList();
 		return lectura;
 	}
-	
+	/**
+	 * Este metodo lista todas las Lecturas de acuerdo a Usuario mediante JPA
+	 * @param id - entero id utilizado para leer Lecturas de acuerdo a id de usuario
+	 * @return - devuelve una lista de todas las lecturas de acuerdo a id de usuario
+	 **/
 	public List<Lectura> getLecturaUsuario(int id){
 		String sql = "SELECT l FROM Lectura l where usuario="+id;
 		System.out.println("ESTA ES LA CONSULTAXXXXXXXXXXXXX ....." + sql);
@@ -117,7 +110,12 @@ public class LecturaDao {
 		List<Lectura> lectura = q.getResultList();
 		return lectura;
 	}
-	
+	/**
+	 * Este metodo lista todas las Lecturas de acuerdo a Usuario mediante JPA
+	 * con un cruce de tablas se utilizara para web servers
+	 * @param id - entero id utilizado para leer Lecturas de acuerdo a id de usuario
+	 * @return - devuelve una lista de todas las lecturas de acuerdo a id de usuario
+	 **/
 	public List<Lectura> getLecturaUsuarioRef(int id){
 		String sql = "SELECT r FROM Lectura l, ReferenciaAPA r where l.referencia=r.id and l.usuario="+id;
 		System.out.println("ESTA ES LA CONSULTAXXXXXXXXXXXXX ....." + sql);
@@ -128,11 +126,6 @@ public class LecturaDao {
 	
 	
 	
-	public List<Comentario> getPeliculaPorAno(){
-		String sql = "SELECT p FROM Pelicula p order by  anoPelicula desc";
-		Query q = em.createQuery(sql);
-		List<Comentario> comentario = q.getResultList();
-		return comentario;
-	}
+	
 	
 }

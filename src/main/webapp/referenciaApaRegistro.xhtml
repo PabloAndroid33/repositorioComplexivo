@@ -30,12 +30,11 @@
 								  	<h:outputLabel value="PDF a Subir:" />   	 	
 									
                          			
-                         			<h:panelGrid columns="2"><p:fileUpload id="msg1" invalidFileMessage="JournalDev: Invalid File Type"  value="#{controler.archivo}" mode="simple" skinSimple="true" 
+                         			<h:panelGrid columns="2"><p:fileUpload id="msg1" label="CARGAR PDF" invalidFileMessage="JournalDev: Invalid File Type"  value="#{controler.archivo}" mode="simple" skinSimple="true" 
                   					 allowTypes="/(\.|\/)(pdf)$/"  fileUploadListener="#{controler.handleFileUpload}" update="msg"/>
                   					<p:growl widgetVar="growl" id="msg" showDetail="true"/></h:panelGrid>
 									
-									<h:outputLabel value="Resumen:" />
-								   	<h:inputTextarea value="#{controler.newReferencia.resumen}" styleClass="form-control" cols="30" rows="3" />	
+									
 								 
 								
 									</h:panelGrid>

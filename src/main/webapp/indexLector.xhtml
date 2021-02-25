@@ -48,19 +48,24 @@ nuesrtros documentos, Gracias</h6>
 <br/>
 <br/>
 <h:form>
-<h:dataTable value="#{controler.listReferencia}" var="referencia" class="table">
-  <h:column>
+<p:dataTable paginator="true" rows="3" value="#{controler.listReferencia}" var="referencia" class="table"
+
+             paginatorTemplate="{CurrentPageReport} {FirstPageLink}
+             {PreviousPageLink} {PageLinks} {NextPageLink}
+             {LastPageLink} {RowsPerPageDropdown}"
+             rowsPerPageTemplate="3,5,10">
+  <p:column>
   <br/>
      <a href="#{facesContext.externalContext.requestContextPath}#{referencia.urlArchivo}"><img src="imagenes/pdf.png" width="110" height="”130”" alt="" /></a>
-    </h:column>
+    </p:column>
   
-    <h:column>
+    <p:column>
    
    <h4><h:commandLink action="#{controler.mostrarArticulo(referencia.id)}" >Nombre: #{referencia.nombre}</h:commandLink> </h4><br/>
-      #{referencia.resumen}
-    </h:column>
+      #{referencia.referencia}
+    </p:column>
     
-  </h:dataTable>
+  </p:dataTable>
 </h:form>
 <br/>
 <br/>

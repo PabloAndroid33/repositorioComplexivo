@@ -35,43 +35,78 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name="tbl_referenciaApa")
 public class ReferenciaAPA {
   
+	/**
+     * Atributo entero de id del tipo prymary key
+     * para implementarse en la tabla
+     */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	@Column(name="ref_id",length=6)
 	private int id;
+	
+	/**
+     * Atributo String nombre
+     * para implementarse en la tabla
+     */
 	@Column(length=50)
 	private String nombre;
 	
-	
+	/**
+     * Atributo String referencia
+     * para implementarse en la tabla
+     */
 	@Column(length=200)
 	private String referencia;
 	
-	
+	/**
+     * Atributo String urlArchivo
+     * para implementarse en la tabla
+     */
 	@Column(length=200)
 	private String urlArchivo;
 	
 	
 
-	
+	/**
+     * Atributo String resumen
+     * para implementarse en la tabla
+     */
 	@Column(length=500)
 	private String resumen;
 	
 	
+	/**
+     * Atributo String keywords
+     * para implementarse en la tabla
+     */
 	@Column(length=500)
 	private String keywords;
 	
+	/**
+     * Atributo String calificacion
+     * para implementarse en la tabla
+     */
 	@Column
 	private Integer Calificacion;
 	
-	
+	/**
+     * Atributo int numCalifica
+     * para implementarse en la tabla
+     */
 	@Column
 	private int numCalifica;
 	
+	/**
+     * Atributo int sumatoria
+     * para implementarse en la tabla
+     */
 	@Column
 	private int sumatoria;
 
-
+	/**
+     * Atributo float calificacionTotal
+     * para implementarse en la tabla
+     */
 	@Column
 	private float calificacionTotal;
 

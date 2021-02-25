@@ -30,38 +30,64 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name="tbl_usuario")
 public class Usuario {
 
+	
+	/**
+     * Atributo entero de id del tipo prymary key
+     * para implementarse en la tabla
+     */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idUsuario;
 	
+	
+	/**
+     * Atributo String nombre
+     * para implementarse en la tabla
+     */
 	@Column(length = 80)//, nullable = false, unique = true)
 	@NotEmpty(message="Ingrese Nombre, no debe ser nulo")
    @Pattern(regexp = "[^0-9]*", message = "Nombre no debe contener letras")
 	private String nombre;
 	
+	/**
+     * Atributo String apellido
+     * para implementarse en la tabla
+     */
 	@Column(length = 80)//, nullable = false, unique = true)
 	@NotEmpty(message="Ingrese Apellido, no debe ser nulo")
 	 @Pattern(regexp = "[^0-9]*", message = "Apellido no debe contener letras")
 	private String apellido;
 
+	/**
+     * Atributo String correo
+     * para implementarse en la tabla
+     */
 	@Column(length = 80)//, nullable = false, unique = true)
     @NotEmpty(message="Ingrese Correo, no debe ser nulo")
-    
+   private String usrCorreo;
 	
-	
-	private String usrCorreo;
-	
+	/**
+     * Atributo String password
+     * para implementarse en la tabla
+     */
 	@Column(length = 80)//, nullable = false, unique = true)
 	@Size(min=5,max=15,message = "Clave incorecta debe contener de 5 a 15 caracteres")
 	@NotEmpty(message="Ingrese Password, no debe ser nulo")
 	private String usrPassword;
 
+	/**
+     * Atributo String usrNombre
+     * para implementarse en la tabla
+     */
 	@Column(length = 80)//, nullable = false, unique = true)
 	@NotEmpty(message="Ingrese User, no debe ser nulo")
     private String usrNombre;
 	
 	
-	
+	/**
+     * Atributo String telefono
+     * para implementarse en la tabla
+     */
 	@Column(length = 80)//, nullable = false, unique = true)
 	@Size(min=10,max=10,message = "El telefono debe contener 10 digitos")
 	@NotEmpty(message="Ingrese Telefono, no debe ser nulo")

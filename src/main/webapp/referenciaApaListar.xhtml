@@ -32,17 +32,17 @@
     #{referencia.nombre}
     </h:column>
    
-    
-	
-	
     <h:column>
-    <f:facet name="header">Resumen</f:facet>
-    #{referencia.resumen}
+    <f:facet name="header">APA</f:facet>
+    #{referencia.referencia}
     </h:column>
+	
+	
+    
     
      <h:column>
     <f:facet name="header">Keywords</f:facet>
-    #{referencia.keywords}
+    #{referencia.keywords.replaceAll(";","; ")}
     </h:column>
    
     <h:column>

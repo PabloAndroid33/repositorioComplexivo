@@ -20,6 +20,10 @@ import javax.persistence.Table;
 @Table(name="tbl_lectura")
 public class Lectura {
 	  
+	/**
+     * Atributo entero de id del tipo prymary key
+     * para implementarse en la tabla
+     */
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 
@@ -27,10 +31,19 @@ public class Lectura {
 		private int id;
 		
 	
-		
+		/**
+	     * Atributo objeto Usuario 
+	     * con declaracion Muchos a uno
+	     * para implementarse en la tabla
+	     */
 		@ManyToOne
 		private Usuario usuario;
 		
+		/**
+	     * Atributo objeto Referencia 
+	     * con declaracion Muchos a uno
+	     * para implementarse en la tabla
+	     */
 		@ManyToOne
 		private ReferenciaAPA referencia;
 

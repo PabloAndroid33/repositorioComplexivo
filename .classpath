@@ -44,5 +44,6 @@
 	<classpathentry exported="true" kind="lib" path="C:/TESIS REMIGIO FINAL/Programas Desarollados/SistemaWebSociedadLector/nativelib_native0.2_2.11-0.2.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/TESIS REMIGIO FINAL/Programas Desarollados/SistemaWebSociedadLector/scala-library-2.11.11.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/TESIS REMIGIO FINAL/Programas Desarollados/SistemaWebSociedadLector/src/main/java/lib/primefaces-5.2.jar"/>
+	<classpathentry kind="lib" path="C:/TESIS REMIGIO FINAL/Programas Desarollados/SistemaWebSociedadLector/src/main/java/lib/javax.mail.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

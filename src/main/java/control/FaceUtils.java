@@ -24,7 +24,7 @@ public class FaceUtils {
     /**  
      * Get servlet context.  
      *   
-     * @return the servlet context  
+     * @return objeto Servlet context respecto a subida de archivos 
      */   
     public static ServletContext getServletContext() {   
         return (ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext();   

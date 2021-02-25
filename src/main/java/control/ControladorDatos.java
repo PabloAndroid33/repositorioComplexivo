@@ -81,219 +81,992 @@ public class ControladorDatos implements Serializable{
 	
 	
 
-	@Inject
-	ReferenciaAPADao daoReferencia2;
+
 	
+	
+	/**
+     * Objeto de ReferenciaDao a ser inyectada
+     * en la clase Controlador
+     */
 	@Inject
 	private ReferenciaAPADao daoReferencia;
+	
+	/**
+     * Objeto de ReferenciaDao declarada
+     */
 	private ReferenciaAPA newReferencia;
+	
+	/**
+     * Objeto de lista ReferenciaAPA declarada
+     */
 	private List<ReferenciaAPA> listReferencia;
+	/**
+     * Objeto de lista ReferenciaAPA para utilizar
+     * en lista ordenada por Calificacion Mayor
+     */
 	private List<ReferenciaAPA> listReferenciaOrdenadas;
 	
-	
-
-	
-
-	
-
+	/**
+     * Objeto de ComentarioDao a ser inyectada
+     * en la clase Controlador
+     */
 	@Inject
 	private ComentarioDao daoComentario;
+	/**
+     * Objeto newComentario de la clase Comentario
+     */
 	private Comentario newComentario;
+	/**
+     * Objeto de lista Comentario declarada
+     */
 	private List<Comentario> listComentario;
 
+	private List<Comentario> listComentarioA;
+	
+	///////////////////////////////////
+	
+
+	
+	
+	public List<Comentario> getListComentarioA() {
+		return listComentarioA;
+	}
+
+	public void setListComentarioA(List<Comentario> listComentarioA) {
+		this.listComentarioA = listComentarioA;
+	}
+	
+	//////////////////////////////////
 	
 	
 	
-	public ComentarioDao getDaoComentario() {
-		return daoComentario;
-	}
-
-	public void setDaoComentario(ComentarioDao daoComentario) {
-		this.daoComentario = daoComentario;
-	}
-
-	public Comentario getNewComentario() {
-		return newComentario;
-	}
-
-	public void setNewComentario(Comentario newComentario) {
-		this.newComentario = newComentario;
-	}
-
-	public List<Comentario> getListComentario() {
-		return listComentario;
-	}
-
-	public void setListComentario(List<Comentario> listComentario) {
-		this.listComentario = listComentario;
-	}
-
-/////////////////////////////////////////////////////////////////
-	
+	/**
+     * Objeto de LecturaDao a ser inyectada
+     * en la clase Controlador
+     */
 	@Inject
 	private LecturaDao daoLectura;
+	
+	/**
+     * Objeto newLectura de la clase Lectura
+     */
 	private Lectura newLectura;
+	/**
+     * Objeto de lista Lectura declarada
+     */
 	private List<Lectura> listLectura;
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-/////////////////////////////////////////////////////////////////	
-
-
-
-
-
-	public LecturaDao getDaoLectura() {
-		return daoLectura;
-	}
-
-	public void setDaoLectura(LecturaDao daoLectura) {
-		this.daoLectura = daoLectura;
-	}
-
-	public Lectura getNewLectura() {
-		return newLectura;
-	}
-
-	public void setNewLectura(Lectura newLectura) {
-		this.newLectura = newLectura;
-	}
-
-	public List<Lectura> getListLectura() {
-		return listLectura;
-	}
-
-	public void setListLectura(List<Lectura> listLectura) {
-		this.listLectura = listLectura;
-	}
-
+	/**
+     * Objeto del UsuarioDao a ser inyectada
+     * en la clase Controlador
+     */
 	@Inject
 	private  UsuarioDao dao;
 	
 	//Usuario para Correo
-	private Usuario newUsuario=new Usuario();
-	private Usuario newUsuarioB=new Usuario();
-	private Usuario newUsuarioLector=new Usuario();
-	//Usuario para User
-	private Usuario newUser=new Usuario();
 	
+	/**
+     * Objeto del Usuario a ser utilizada
+     * para operaciones de usuario Super Admin
+     */
+	private Usuario newUsuario=new Usuario();
+	/**
+     * Objeto del Usuario a ser utilizada
+     * para operaciones de usuario Bibliotecario
+     */
+	private Usuario newUsuarioB=new Usuario();
+	/**
+     * Objeto del Usuario a ser utilizada
+     * para operaciones de usuario Lector
+     */
+	private Usuario newUsuarioLector=new Usuario();
+	
+	
+	/**
+     * Atributo id para utilizar 
+     * en referencias a objetos:"Referencias,Comentarios,Lecturas,Usuarios" 
+     */
 	private int id;
 	@Inject
 	private FacesContext fc;
 
+	/**
+     * Objeto del Usuario a ser utilizada
+     * para comparar y verificar usuario
+     */
 	private Usuario usuarioVerificar;
-	private boolean logging = false;
-	private boolean administrador = false; 
-	private List<Usuario> ltsUsuario;
 	
+	/**
+     * Atributo para verificar logueo de usuario 
+     */
+	private boolean logging = false;
+	/**
+     * Atributo para verificar logueo  de Administrador de usuario 
+     */
+	private boolean administrador = false; 
+	
+	/**
+     * Objeto de lista Lectura declarada
+     */
+	private List<Usuario> ltsUsuario;
+	/**
+     * Objeto de lista Usuario para
+     * utilizar en usuarios tipo "lector"
+     */
 	private List<Usuario> ltsUsuarioLector;
 	
+	
+	/**
+     * Objeto del tipo Part para guardar archivos
+     */
+	private Part uploadedFile;
+	
+	/**
+     * Atributo String que guarda la ruta inicial de archivo
+     */
+	private String folder = "resources/";
+
+
+	/**
+     * Objeto del tipo Uploaded para manejo de archivos
+     */
+	private UploadedFile archivo;
+	
+	/**
+     * Objeto del tipo Uploaded para utilizar al modificar los archivos
+     */
+	private UploadedFile archivoModifica;
+	
+	String rutaAbsoluta;
+	 
+	/**
+     * Objeto del tipo Socket para utilizar en comunicacion con Python
+     */
+	Socket socket;
+	
+	/**
+     * Atributo String que trabaja con el texto de archivo generado de Python
+     */
+	String saludo;
+	
+	   /**
+	     * Atributo String que corta el texto de archivo recuperado de Python
+	     */
+	String texto;
+	 /**
+     * Atributo String para directorio de archivos
+     */
+	private String destino;
+	
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////GETTERS Y SETTERS DE LOS ATRIBUTOS/////////////////////////
+	
+	/**
+	 * Obtiene un Comentario Dao
+	 * @return - devuelve un objeto del UsuarioDao
+	 **/
+	public ComentarioDao getDaoComentario() {
+		return daoComentario;
+	}
+
+	/**
+	 * Este metodo estable el objeto Comentario Dao
+	 * @param daoComentario - objeto ComentarioDao a ingresar
+	 **/
+	public void setDaoComentario(ComentarioDao daoComentario) {
+		this.daoComentario = daoComentario;
+	}
+
+	/**
+	 * Obtiene un objeto Comentario
+	 * @return - devuelve un objeto del UsuarioDao
+	 **/
+	public Comentario getNewComentario() {
+		return newComentario;
+	}
+
+	/**
+	 * Este metodo estable el objeto Comentario
+	 * @param newComentario - objeto Comentario a ingresar
+	 **/
+	public void setNewComentario(Comentario newComentario) {
+		this.newComentario = newComentario;
+	}
+
+	/**
+	 * Obtiene un objeto de lista Comentario
+	 * @return - devuelve un objeto de lista Comentario
+	 **/
+	public List<Comentario> getListComentario() {
+		return listComentario;
+	}
+
+	
+	/**
+	 * Este metodo establece una lista de objeto Comentario
+	 * @param listComentario - objeto lista Comentario a ingresar
+	 **/
+	public void setListComentario(List<Comentario> listComentario) {
+		this.listComentario = listComentario;
+	}
+
+
+
+
+	/**
+	 * Obtiene una Lectura Dao
+	 * @return - devuelve un objeto de LecturaDao
+	 **/
+	public LecturaDao getDaoLectura() {
+		return daoLectura;
+	}
+
+	/**
+	 * Este metodo estable el objeto Lectura Dao
+	 * @param daoLectura - objeto LecturaDao a ingresar
+	 **/
+	public void setDaoLectura(LecturaDao daoLectura) {
+		this.daoLectura = daoLectura;
+	}
+
+	/**
+	 * Obtiene un objeto Lectura
+	 * @return - devuelve un objeto de Lectura
+	 **/
+	public Lectura getNewLectura() {
+		return newLectura;
+	}
+	/**
+	 * Este metodo estable el objeto Lectura
+	 * @param newLectura - objeto Lectura a ingresar
+	 **/
+	public void setNewLectura(Lectura newLectura) {
+		this.newLectura = newLectura;
+	}
+	/**
+	 * Obtiene un objeto lista Lectura
+	 * @return - devuelve un objeto de lisraLectura
+	 **/
+	public List<Lectura> getListLectura() {
+		return listLectura;
+	}
+	/**
+	 * Este metodo establece una lista de objeto Lectura
+	 * @param listLectura - objeto lista Lectura a ingresar
+	 **/
+	public void setListLectura(List<Lectura> listLectura) {
+		this.listLectura = listLectura;
+	}
+
+	
+	/**
+	 * Obtiene un objeto Usuario para usar en el tipo lector
+	 * @return - devuelve un objeto de LecturaDao para tipo lector
+	 **/
 	public List<Usuario> getLtsUsuarioLector() {
 		return ltsUsuarioLector;
 	}
-
+	/**
+	 * Este metodo establece una lista de objeto Comentario para usar en el tipo lector
+	 * @param ltsUsuarioLector - objeto lista Usuario a ingresar para tipo lector
+	 **/
 	public void setLtsUsuarioLector(List<Usuario> ltsUsuarioLector) {
 		this.ltsUsuarioLector = ltsUsuarioLector;
 	}
 
-	private Part uploadedFile;
 	
 	
-	private String folder = "resources/";
+	
+	
+	/**
+	 * Obtiene un objeto UploadedFile para manejo de Archivos a modificar
+	 * @return - devuelve un objeto UploadedFile para manejo de Archivos a modificar
+	 **/
+	public UploadedFile getArchivoModifica() {
+		return archivoModifica;
+	}
+	/**
+	 * Este metodo establece el objeto UploadedFile para archivos a modificar
+	 * @param archivoModifica - objeto UploadedFile a ingresar
+	 **/
+	public void setArchivoModifica(UploadedFile archivoModifica) {
+		this.archivoModifica = archivoModifica;
+	}
 
-
-	/*****/
-	private UploadedFile archivo;
-	private String destino;
 	
-	
-	
-	
-	
-	
-	  String rutaAbsoluta;
-	  Socket socket;
-	   String saludo;
-	
-	String texto;
-	
-	
+	/**
+	 * Obtiene un String texto para cortar palabra keywords
+	 * @return - devuelve un String para cortar palabra keywords
+	 **/
 	public String getTexto() {
 		return texto;
 	}
-
+	/**
+	 * Este metodo establece el String texto para cortar palabra keywords
+	 * @param texto - String texto a ingresar
+	 **/
 	public void setTexto(String texto) {
 		this.texto = texto;
 	}
-
+	/**
+	 * Obtiene un Socket socket  para comunicarse con Python
+	 * @return - devuelve un objeto Socket para comunicarse con Python
+	 **/
 	public Socket getSocket() {
 		return socket;
 	}
-
+	/**
+	 * Este metodo establece el objeto Socket para comunicarse con Python
+	 * @param socket - Socket ingraso para comunicarse con Python
+	 **/
 	public void setSocket(Socket socket) {
 		this.socket = socket;
 	}
-
+	/**
+	 * Obtiene un String saludo para guardar texto obtenido de Python
+	 * @return - devuelve un String para guardar texto obtenido de Python
+	 **/
 	public String getSaludo() {
 		return saludo;
 	}
-
+	/**
+	 * Este metodo establece el String saludo para guardar texto obtenido de Python
+	 * @param saludo - String saludo a ingresar para guardar texto obtenido de Python
+	 **/
 	public void setSaludo(String saludo) {
 		this.saludo = saludo;
 	}
-
+	/**
+	 * Obtiene un String de ruta completa
+	 * @return - devuelve un String de ruta completa
+	 **/
 	public String getRutaAbsoluta() {
 		return rutaAbsoluta;
 	}
-
+	/**
+	 * Este metodo establece el String rutaAbsoluta para directoria de archivos
+	 * @param rutaAbsoluta - String rutaAbsoluta a ingresar para directorio de archivos
+	 **/
 	public void setRutaAbsoluta(String rutaAbsoluta) {
 		this.rutaAbsoluta = rutaAbsoluta;
 	}
-
+	/**
+	 * Obtiene un Objeto UploadedFile para manejo de archivos
+	 * @return - devuelve un objeto Uploaded para manejo de archivos
+	 **/
 	public UploadedFile getArchivo() {
 		return archivo;
 	}
-
+	/**
+	 * Este metodo establece el objeto UploadedFile para manejo de archivos
+	 * @param archivo - Uploaded a ingresar para manejo de archivos
+	 **/
 	public void setArchivo(UploadedFile archivo) {
 		this.archivo = archivo;
 	}
-
+	/**
+	 * Obtiene un String destino para ruta de archivo
+	 * @return - devuelve un String para ruta de Archivo
+	 **/
 	public String getDestino() {
 		return destino;
 	}
-
+	/**
+	 * Obtiene un String de ruta a utilizar en archivos
+	 * @return - devuelve un String de ruta de archivos
+	 **/
 	public void setDestino(String destino) {
 		this.destino = destino;
 	}
 	
-	public void nuevoDocumento() 
-	{
-		if(uploadPdf()) {
-			newReferencia.setUrlArchivo(destino);
-			//create();
-		}
+	/**
+	 * Obtiene un Objeto Part para manejo de archivos
+	 * @return - devuelve un objeto Part para manejo de archivos
+	 **/
+	public Part getUploadedFile() {
+		return uploadedFile;
+	}
+	/**
+	 * Este metodo establece el objeto Part para manejo de archivos
+	 * @param uploadedFile - Part a ingresar para manejo de archivos
+	 **/
+	public void setUploadedFile(Part uploadedFile) {
+		this.uploadedFile = uploadedFile;
+	}
+
+
+	/**
+	 * Obtiene un entero id para id de los objetos "Usuario,Referencia, Lectura, Comentarios"
+	 * @return - devuelve un objeto id para los objetos "Usuario,Referencia, Lectura, Comentarios"
+	 **/
+	public int getId() {
+		return id;
+	}
+	/**
+	 * Este metodo establece el entero id para id de los objetos "Usuario,Referencia, Lectura, Comentarios"
+	 * @param id - Entero a ingresar para id de los objetos "Usuario,Referencia, Lectura, Comentarios"
+	 **/
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	
+	
+	//***-
+	/**
+	 * Obtiene un objeto Referencia Dao
+	 * @return - devuelve un objeto de Referencia Dao
+	 **/
+	public ReferenciaAPADao getDaoReferencia() {
+		return daoReferencia;
+	}
+	/**
+	 * Este metodo estable el objeto ReferenciaAPA Dao
+	 * @param daoReferencia - objeto ReferenciaDao a ingresar
+	 **/
+	public void setDaoReferencia(ReferenciaAPADao daoReferencia) {
+		this.daoReferencia = daoReferencia;
+	}
+	/**
+	 * Obtiene un objeto Referencia
+	 * @return - devuelve un objeto ReferenciaAPA
+	 **/
+	public ReferenciaAPA getNewReferencia() {
+		return newReferencia;
+	}
+	/**
+	 * Este metodo estable el objeto Referencia
+	 * @param newReferencia - objeto Referencia a ingresar
+	 **/
+	public void setNewReferencia(ReferenciaAPA newReferencia) {
+		this.newReferencia = newReferencia;
+	}
+
+	/**
+	 * Obtiene un objeto lista ReferenciaAPA
+	 * @return - devuelve un objeto de lista ReferenciaAPA
+	 **/
+	public List<ReferenciaAPA> getListReferencia() {
+		return listReferencia;
+	}
+	/**
+	 * Este metodo establece una lista de objeto Referencia
+	 * @param listReferencia - objeto lista Referencia a ingresar
+	 **/
+	public void setListReferencia(List<ReferenciaAPA> listReferencia) {
+		this.listReferencia = listReferencia;
+	}
+	/**
+	 * Obtiene un objeto Usuario
+	 * @return - devuelve un objeto de Usuario
+	 **/
+	public Usuario getNewUsuario() {
+		return newUsuario;
+	}
+	/**
+	 * Este metodo estable el objeto Usuario
+	 * @param newUsuario - objeto Usuario a ingresar
+	 **/
+	public void setNewUsuario(Usuario newUsuario) {
+		this.newUsuario = newUsuario;
 	}
 	
+	/**
+	 * Obtiene un objeto Usuario para tipo Bibliotecario
+	 * @return - devuelve un objeto de Usuario para usar Bibliotecario
+	 **/
+	public Usuario getNewUsuarioB() {
+		return newUsuarioB;
+	}
+	/**
+	 * Este metodo estable el objeto Usuario para tipo Bibliotecario
+	 * @param newUsuarioB - objeto Usuario tipo Bibliotecario a ingresar
+	 **/
+	public void setNewUsuarioB(Usuario newUsuarioB) {
+		this.newUsuarioB = newUsuarioB;
+	}
+	/**
+	 * Obtiene un objeto Usuario para tipo Lector
+	 * @return - devuelve un objeto de Usuario para usar en Lector
+	 **/
+	public Usuario getNewUsuarioLector() {
+		return newUsuarioLector;
+	}
+	/**
+	 * Este metodo estable el objeto Usuario para tipo Lector
+	 * @param newUsuarioLector - objeto Usuario tipo Lector a ingresar
+	 **/
+	public void setNewUsuarioLector(Usuario newUsuarioLector) {
+		this.newUsuarioLector = newUsuarioLector;
+	}
+
 	
-	public Boolean uploadPdf() 
+	/**
+	 * Obtiene un objeto Usuario para usar comparativa en Logueo
+	 * @return - devuelve un objeto de Usuario para usar comparativa en Logueo
+	 **/
+	public Usuario getUsuarioVerificar() {
+		return usuarioVerificar;
+	}
+	/**
+	 * Este metodo estable el objeto Usuario para tipo Bibliotecario
+	 * @param newUsuarioVerificar - objeto Usuario tipo Bibliotecario a ingresar
+	 **/
+	public void setUsuarioVerificar(Usuario usuarioVerificar) {
+		this.usuarioVerificar = usuarioVerificar;
+	}
+
+	/**
+	 * Obtiene un objeto Usuario Dao
+	 * @return - devuelve un objeto de UsuarioDao
+	 **/
+	public UsuarioDao getDao() {
+		return dao;
+	}
+	/**
+	 * Este metodo estable el objeto Usuario Dao
+	 * @param dao - objeto UsuarioDao a ingresar
+	 **/
+	public void setDao(UsuarioDao dao) {
+		this.dao = dao;
+	}
+	/**
+	 * Obtiene un booleano para confirmar logueo
+	 * @return - devuelve un boolean para logueo
+	 **/
+	public boolean isLogging() {
+		return logging;
+	}
+	/**
+	 * Este metodo establece el atributo logging
+	 * @param logging -  booleano logging a ingresar
+	 **/
+	public void setLogging(boolean logging) {
+		this.logging = logging;
+	}
+	/**
+	 * Obtiene un booleano para confirmar logueo Administrador
+	 * @return - devuelve un boolean para logueo Administrador
+	 **/
+	public boolean isAdministrador() {
+		return administrador;
+	}
+	/**
+	 * Este metodo establece el booleano administrador
+	 * @param administrador - booleano administrador a ingresar
+	 **/
+	public void setAdministrador(boolean administrador) {
+		this.administrador = administrador;
+	}
+	/**
+	 * Obtiene un objeto lista Usuario
+	 * @return - devuelve un objeto de lista Usuario
+	 **/
+	public List<Usuario> getLtsUsuario() {
+		return ltsUsuario;
+	}
+	/**
+	 * Este metodo establece una lista de objeto Usuario
+	 * @param ltsUsuario - objeto lista Usuario a ingresar
+	 **/
+	public void setLtsUsuario(List<Usuario> ltsUsuario) {
+		this.ltsUsuario = ltsUsuario;
+	}
+
+	/**
+	 * Obtiene un objeto lista ReferenciaAPA ordenadas por Calificacion
+	 * @return - devuelve un objeto de lista ReferenciaAPA ordenadas por Calificacion
+	 **/
+	public List<ReferenciaAPA> getListReferenciaOrdenadas() {
+		return listReferenciaOrdenadas;
+	}
+	/**
+	 * Este metodo establece una lista de objeto Referencia ordenadas por Calificacion
+	 * @param listReferenciaOrdenadas - objeto lista Comentario a ingresar
+	 **/
+	public void setListReferenciaOrdenadas(List<ReferenciaAPA> listReferenciaOrdenadas) {
+		this.listReferenciaOrdenadas = listReferenciaOrdenadas;
+	}
+
+	
+	
+
+	/**
+	 * Este metodo que inicializa los valores objeto
+	 * de "Referencia, Comentario, Lectura, Usuario"
+	 * sus respectivos dao clases modelo y listas objeto
+	 **/
+@PostConstruct
+	public void init(){
+	
+	    newReferencia=new ReferenciaAPA();
+	    newComentario=new Comentario();
+	    
+	    newLectura=new Lectura();
+	    
+	  //  newComentario.setUsuario(newUsuario);
+	    
+	    newComentario.setReferencia(newReferencia);
+
+	    
+	    listComentarioA=daoComentario.getComentario();
+
+	    listReferencia=daoReferencia.getReferencia();
+	    
+	    listLectura=daoLectura.getLecturaUsuario(newUsuarioLector.getIdUsuario());
+	    listComentario=daoComentario.getComentario();
+	    listReferenciaOrdenadas=daoReferencia.getReferenciaOrdenada();
+	    
+	    newUsuario=new Usuario();
+	    newUsuarioB=new Usuario();
+	    newUsuarioLector=new Usuario();
+	    
+	    //newUser=new Usuario();
+	    
+	    usuarioVerificar=new Usuario();
+		ltsUsuario= dao.getUsuarios();
+		ltsUsuarioLector= dao.getUsuariosLector();
+		
+}
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////CONTROLADOR PARA OPERACIONES DE USUARIO/////////////////////////
+
+/**
+* Llama a DaoInsertar que 
+* luego sera invocado por controlador
+* en Vista para insertar un Usuario del tipo Bibliotecario
+* @return - devuelve un String que me redirige a la lista de 
+*  los usuarios del tipo Biblio
+**/
+public String insertarUsuarioBiblio() {
+newUsuario.setUsrRol("biblio"); 
+//newUsuario.setUsrTopic(false);
+dao.save(newUsuario);
+//init();
+//logging = true;
+//validarUsuario();
+return "usuarioAdministradorListar";
+}
+
+/**
+* Llama a DaoInsertar que 
+* luego sera invocado por controlador
+* en Vista para insertar un Usuario del tipo Lector
+* @return - devuelve un String que me redirige a la lista de 
+*  los usuarios del tipo Biblio
+**/
+public String insertarUsuarioLector() {
+newUsuarioLector.setUsrRol("lector"); 
+//newUsuario.setUsrTopic(false);
+dao.save(newUsuarioLector);
+//init();
+//logging = true;
+//validarUsuario();
+return "lectorLogin";
+}
+
+/**
+* Redirige a pagina LectorRegistro
+* @return - devuelve un String con pagina LectorRegistro
+**/
+public String botonIngresarUsuarioLector() {
+
+return "lectorRegistro";
+}
+
+/**
+*Carga los Valores de Usuario
+*llenando los campos con estos valores 
+*de acuerdo al id Seleccionado
+**/
+public void loadDatosUsuario() {
+System.out.println("codigo editar " + id);
+if(id==0)
+return;
+newUsuario = getUsuario(id);
+System.out.println(newUsuario.getIdUsuario() + " " + newUsuario.getNombre() );
+//System.out.println("#telefonos: " + " " + persona.getTelefonos().size());
+
+}
+
+/**
+* Llama a metodo leer de Usuario 
+* @param codigo -ingresamos el id "Entero" para buscar usuario
+* @return - devuelve un objeto tipo Usuario de acuerdo al id de usuario
+**/
+public Usuario getUsuario(int codigo) {
+Usuario aux = dao.leer(codigo);
+
+return aux;
+
+}
+/**
+* Redirige a UsuarioEditar de acuerdo al
+* usuario que se aya seleccionado a editar
+**/
+public String editarUsuario(int codigo) {
+
+
+return "usuario?faces-redirect=true&id="+codigo;
+}
+
+/**
+*Actualiza un usauario
+*con los nuevos datos establecidos
+* @return - devuelve un String que me redirige a la pagina
+* actualizar Usuario con el registro ya actualizado
+**/
+public String cargarDatos() {
+
+try {
+dao.save(newUsuario);
+init();
+} catch (Exception e) {
+// TODO Auto-generated catch block
+e.printStackTrace();
+}
+
+return "usuarioAdministradorActualizacion";
+}
+
+/**
+* Llama a DaoEliminar que 
+* luego sera invocado por controlador
+* en Vista Eliminar Usuario
+**/
+public String eliminarUsuario(int id){
+dao.borrar(id);
+init();
+return null;
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////CONTROLADOR PARA LOGGING DE USUARIOS/////////////////////////
+
+/**
+* Valida si usario tipo Lector existe
+* y pregunta si es igual el correo y password para ingreso
+* @return - devuelve un string de redireccion dependiendo
+* si el usuario y password es corecto a inicio usuario o si no
+* a error de registro "no existe"
+**/
+public String validarUsuarioLector(){
+String destino="";
+System.out.println("////////"+usuarioVerificar.getUsrCorreo());
+newUsuarioLector=dao.buscarCorreo(usuarioVerificar);
+String var=newUsuarioLector+" ";
+
+System.out.println("Valor de USUARIO "+" "+var.substring(19,20));
+int valor=Integer.parseInt(var.substring(19,20));
+//System.out.println("Si existe  y se llama: "+ newUsuario.getUsrNombre());
+if(valor>0){
+
+FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("lector",newUsuarioLector);
+//administrador = true;
+administrador = true;	
+destino="indexLector";
+//return "indexAdministrador";
+
+//return "indexUsuario";
+}else {
+System.out.println("el usuario lector "+usuarioVerificar.getUsrCorreo()+" no existe");
+
+destino="lectorLogin";
+FacesContext context = FacesContext.getCurrentInstance();
+FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+      "Usuario o Password Incorectos",
+      "Usuario No existe");
+context.addMessage(null, message);
+context.validationFailed();
+
+return destino;
+}
+
+
+//System.err.println(newUsuario.getUsuarioTwitter());
+
+
+//init();	
+
+return destino;
+}
+
+
+/**
+* Valida si usario tipo Admin existe
+* y pregunta si es igual el correo y password para ingreso
+* @return - devuelve un string de redireccion dependiendo
+* si el usuario y password es corecto a inicio usuario o si no
+* a error de registro "no existe"
+**/
+public String validarAdmin() throws IOException{
+
+FacesMessage message2 = null;
+
+
+String destino="";
+System.out.println("////////"+usuarioVerificar.getUsrCorreo());
+newUsuario=dao.buscarCorreoAdmin(usuarioVerificar);
+String var=newUsuario+" ";
+
+System.out.println("Valor Completo "+" "+var);
+System.out.println("Valor de USUARIO"+" "+var.substring(19,20));
+int valor=Integer.parseInt(var.substring(19,20));
+
+
+
+newUsuarioB=dao.buscarCorreoBiblio(usuarioVerificar);
+String varB=newUsuarioB+" ";
+
+System.out.println("Valor Completo "+" "+varB);
+System.out.println("Valor de USUARIO BIBLIO"+" "+varB.substring(19,20));
+int valorB=Integer.parseInt(varB.substring(19,20));
+
+
+
+
+//System.out.println("Si existe  y se llama: "+ newUsuario.getUsrNombre());
+if(valor>0){
+//System.out.println("el usuario "+usuarioVerificar.getUsrCorreo()+" si existe");
+//logging = true;.substring(0,8);
+//destino="indexUsuario";
+
+//System.out.println("el usuario "+usuarioVerificar.getUsrCorreo()+"es usuarioLector");
+
+FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario",newUsuario);
+administrador = true;	
+destino="indexAdministrador.xhtml";
+//return "indexAdministrador";
+
+//return "indexUsuario";
+}else if(valorB>0)
+{
+FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario",newUsuarioB);
+administrador = true;	
+destino="indexBibliotecario.xhtml";
+
+}else {
+System.out.println("el usuario lector "+usuarioVerificar.getUsrCorreo()+" no existe");
+
+destino="usuarioLogin";
+FacesContext context = FacesContext.getCurrentInstance();
+FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+      "Usuario o Password Incorectos",
+      "Usuario No existe");
+context.addMessage(null, message);
+context.validationFailed();
+
+return destino;
+}
+
+
+//System.err.println(newUsuario.getUsuarioTwitter());
+
+
+//init();	
+//FacesContext context2 = FacesContext.getCurrentInstance();
+
+FacesContext.getCurrentInstance().getExternalContext().redirect(destino);
+return destino;
+}
+
+
+/**
+* Permite ver si sesion esta abierta
+* o si no redirige a pagina verificar sesion
+**/
+public void verificarSesion() 
+{
+try {
+FacesContext context=FacesContext.getCurrentInstance();
+newUsuarioB=(Usuario)context.getExternalContext().getSessionMap().get("usuario");
+if(newUsuarioB==null){
+context.getExternalContext().redirect("usuarioSinPermiso.xhtml");
+}
+
+/*if(usu!=null){
+context.getExternalContext().redirect("usuariofueRegistrado.xhtml");
+}*/
+}catch(Exception e)
+{
+//Algun registro de eror
+}
+}
+/**
+* Permite cerrar la sesion a Usuario Administrativo
+* accediendo a la pagina usuarioLogin
+**/
+public String cerrarSesion()
+{
+//FacesContext.getCurrentInstance().getExternalContext().redirect("usuarioLogin");
+FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+return "usuarioLogin";
+
+}
+
+/**
+* Permite ver si sesion  de Lector esta abierta
+* o si no redirige a pagina verificar sesion
+**/
+public void verificarSesionLector() 
+{
+try {
+FacesContext context=FacesContext.getCurrentInstance();
+newUsuarioLector=(Usuario)context.getExternalContext().getSessionMap().get("lector");
+if(newUsuarioLector==null){
+context.getExternalContext().redirect("lectorLoginError.xhtml");
+}
+
+/*if(usu!=null){
+context.getExternalContext().redirect("usuariofueRegistrado.xhtml");
+}*/
+}catch(Exception e)
+{
+//Algun registro de eror
+}
+}
+
+/**
+* Permite cerrar la sesion a Usuario Lector
+* accediendo a la pagina LectorLogin
+**/
+
+public String cerrarSesionLector()
+{
+//FacesContext.getCurrentInstance().getExternalContext().redirect("usuarioLogin");
+FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+return "lectorLogin";
+
+}
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////CONTROLADOR PARA MANEJO DE ARCHIVOS PARA SERVIDOR/////////////////////////
+
+
+/**
+* Metodo que nos permite subir un archivo
+* en el servidor Wildfly dentro de su directorio
+* y consumirlo para nuestras nesesidades
+*   @return - devuelve un boolean si 
+*   operacion de subida de archivo hacia el servidor
+*   es correcta
+**/
+public Boolean uploadPdf() 
 	{
 		try{
 		destino=Constantes.url;
-		System.out.println("Destino metodo Upload "+destino);
-		
+		System.out.println("Ver Formato Libro  "+getArchivo()+" "+getArchivo());
 		File folder=new File(FaceUtils.getPath()+destino);
 		System.out.println("Destino con faceUtils "+FaceUtils.getPath()+destino);
+		//System.out.println("Ver Formato Libro  "+getArchivo().getFileName()+" "+getArchivo().getInputstream());
 		if(!folder.exists()) {
 			folder.mkdirs();
 		}
+		//System.out.println("Ver Formato Libro  "+getArchivo().getFileName()+" "+getArchivo().getInputstream());
 		copyFile(getArchivo().getFileName(),getArchivo().getInputstream());
 		return true;
 		}catch(IOException e) 
@@ -302,7 +1075,11 @@ public class ControladorDatos implements Serializable{
 		}
 	}
 	
-	
+/**
+* Metodo que lee el Archivo
+* @param filename -ingresamos nombre de archivo String
+* @param in -flujo de datos input para leer el archivo
+**/
 	public void copyFile(String fileName,InputStream in) 
 	{
 		try {
@@ -334,439 +1111,50 @@ public class ControladorDatos implements Serializable{
 	/**////
 	
 	
+	/**
+	* Metodo que trabaja con getFileName
+	*  para cargarlo en la vista p:upload File
+	* @param event -objeto del tipo event para escuchar
+	* manejo de archivos en vista
+	**/
+	
+	@RequestScoped
+	public void handleFileUpload(FileUploadEvent event) {  
+	FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");  
+	FacesContext.getCurrentInstance().addMessage(null, msg);  
+	} 
 	
 	
-
-	public Part getUploadedFile() {
-		return uploadedFile;
-	}
-
-	public void setUploadedFile(Part uploadedFile) {
-		this.uploadedFile = uploadedFile;
-	}
-
-	
-	
-	
-
-	
-
-	
-	
-	
-
-	
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	
-
-	
-
-	
-
-
-//	Getters y setters Pelicula
-	
-	
-	
-	
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	public ReferenciaAPADao getDaoReferencia2() {
-		return daoReferencia2;
-	}
-
-	public void setDaoReferencia2(ReferenciaAPADao daoReferencia2) {
-		this.daoReferencia2 = daoReferencia2;
-	}
-
-	public ReferenciaAPADao getDaoReferencia() {
-		return daoReferencia;
-	}
-
-	public void setDaoReferencia(ReferenciaAPADao daoReferencia) {
-		this.daoReferencia = daoReferencia;
-	}
-
-	public ReferenciaAPA getNewReferencia() {
-		return newReferencia;
-	}
-
-	public void setNewReferencia(ReferenciaAPA newReferencia) {
-		this.newReferencia = newReferencia;
-	}
-
-	public List<ReferenciaAPA> getListReferencia() {
-		return listReferencia;
-	}
-
-	public void setListReferencia(List<ReferenciaAPA> listReferencia) {
-		this.listReferencia = listReferencia;
-	}
-
-	public Usuario getNewUsuario() {
-		return newUsuario;
-	}
-
-	public void setNewUsuario(Usuario newUsuario) {
-		this.newUsuario = newUsuario;
-	}
-	
-	
-	
-	
-	
-	
-	
-
-	public Usuario getNewUsuarioB() {
-		return newUsuarioB;
-	}
-
-	public void setNewUsuarioB(Usuario newUsuarioB) {
-		this.newUsuarioB = newUsuarioB;
-	}
-
-	public Usuario getNewUsuarioLector() {
-		return newUsuarioLector;
-	}
-
-	public void setNewUsuarioLector(Usuario newUsuarioLector) {
-		this.newUsuarioLector = newUsuarioLector;
-	}
-
-	public Usuario getNewUser() {
-		return newUser;
-	}
-
-	public void setNewUser(Usuario newUser) {
-		this.newUser = newUser;
-	}
-
-	public Usuario getUsuarioVerificar() {
-		return usuarioVerificar;
-	}
-
-	public void setUsuarioVerificar(Usuario usuarioVerificar) {
-		this.usuarioVerificar = usuarioVerificar;
-	}
-
-	public UsuarioDao getDao() {
-		return dao;
-	}
-
-	public void setDao(UsuarioDao dao) {
-		this.dao = dao;
-	}
-
-	public boolean isLogging() {
-		return logging;
-	}
-
-	public void setLogging(boolean logging) {
-		this.logging = logging;
-	}
-
-	public boolean isAdministrador() {
-		return administrador;
-	}
-
-	public void setAdministrador(boolean administrador) {
-		this.administrador = administrador;
-	}
-
-	public List<Usuario> getLtsUsuario() {
-		return ltsUsuario;
-	}
-
-	public void setLtsUsuario(List<Usuario> ltsUsuario) {
-		this.ltsUsuario = ltsUsuario;
+	/**
+	* Metodo que obtiene la direccion del archivo
+	* para cargarlo en la vista p:upload File
+	* @param part -objeto Part para manejo de archivos
+	*  p:upload File de vista
+	*   @return - devuelve un string de el archivo 
+	*  cargado en la vista
+	**/
+	private static String getFilename(Part part) {
+	   for (String cd : part.getHeader("content-disposition").split(";")) {
+	       if (cd.trim().startsWith("filename")) {
+	           String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
+	           return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
+	       }
+	   }
+	   return null;
 	}
 
 
-	public List<ReferenciaAPA> getListReferenciaOrdenadas() {
-		return listReferenciaOrdenadas;
-	}
-
-	public void setListReferenciaOrdenadas(List<ReferenciaAPA> listReferenciaOrdenadas) {
-		this.listReferenciaOrdenadas = listReferenciaOrdenadas;
-	}
-
-	@PostConstruct
-	public void init(){
-	
-	    newReferencia=new ReferenciaAPA();
-	    newComentario=new Comentario();
-	    
-	    newLectura=new Lectura();
-	    
-	  //  newComentario.setUsuario(newUsuario);
-	    
-	    newComentario.setReferencia(newReferencia);
-
-	    
-	    
-	    
-	  //  newPelicula.setCategoria(newCategoria);
-	    
-	    
-	    
-	    
-	    
-	   // newPelicula.setDirector(newDirector);
-	    listReferencia=daoReferencia.getReferencia();
-	    
-	    listLectura=daoLectura.getLecturaUsuario(newUsuarioLector.getIdUsuario());
-	    listComentario=daoComentario.getComentarioArticulo(id);
-	    listReferenciaOrdenadas=daoReferencia.getReferenciaOrdenada();
-	    
-	    newUsuario=new Usuario();
-	    newUsuarioB=new Usuario();
-	    newUsuarioLector=new Usuario();
-	    newUser=new Usuario();
-	    
-	    usuarioVerificar=new Usuario();
-		ltsUsuario= dao.getUsuarios();
-		ltsUsuarioLector= dao.getUsuariosLector();
-		
-}
-
-	
-	
-	public List<Comentario> getComentarioArticulo(int id){
-		
-		List<Comentario> comentario = listComentario=daoComentario.getComentarioArticulo(id);
-		return comentario;
-	}
-	
-public List<Lectura> getLecturaUsuario(int id){
-		
-		List<Lectura> lectura = listLectura=daoLectura.getLecturaUsuario(id);
-		return lectura;
-	}
-	//////////////////////////////////////	
-	//Metodos Crud Categoria
-	/*public String insertarCategoria(){
-		if(newCategoria.getNombre().equals("")||newCategoria.getDescripcion().equals("")){
-			return "noData";
-		}else{
-			daoCategoria.save(newCategoria);
-			init();
-			return "categoriaListar";
-		}
-	}*/
-	/*public String actualizarCategoria(int id){
-		Categoria categoria =daoCategoria.leer(id);
-		newCategoria=categoria;
-		return "categoriaRegistro";
-	}*/
-  
-    
-    
-    
-    
 
 
-
-
-//////////////////////////////////////
-//Metodos Crud Articulo
-
-
-public String saveFile() {
-	
-	
-	 String fileName = "";
-	
-	  try {
-		  
-		  fileName = getFilename(uploadedFile);
-		  
-		  System.out.println("fileName  " + fileName);
-		  
-		  uploadedFile.write(folder+fileName);
-		 // return folder+fileName;
-		  
-           
-       } catch (IOException ex) {
-           System.out.println(ex);
-           return "error";
-           
-           
-       }
-	  
-	  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("File " + fileName+ " Uploaded!"));
-	  return folder+fileName;
-	
-}
-
-
-private static String getFilename(Part part) {
-   for (String cd : part.getHeader("content-disposition").split(";")) {
-       if (cd.trim().startsWith("filename")) {
-           String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-           return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.
-       }
-   }
-   return null;
-}
-
-
-
-
-
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////CONTROLADOR PARA CONEXION Y EJECUCION  DE PYTHON/////////////////////////
 /**
- * Llama a DaoInsertar que 
- * luego sera invocado por controlador
- * en Vista InsertaReferencia
- **/
-
-public String insertarReferencia() throws IOException, InterruptedException{
-
-	
-	
-	
-	
-	//System.out.println("COORTADO SSSS xxxxFF "+wey.substring(otro-3,otro));
-	if(uploadPdf()) {
-		//int otro=0+destino.length();
-		if(conectaServidor()) {
-		
-		
-		
-		if(mensaFromServidor()) 
-		{
-			newReferencia.setKeywords(cortaPalabras());
-		}
-		}
-		
-		
-		newReferencia.setUrlArchivo(destino);
-	
-	//newReferencia.setUrlArchivo(saveFile());
-		
-	
-	/*for (int i = 1; i <= 2300000; i++){ //borde de arriba
-        System.out.print("#"); 
-   }*/
-	
-	
-	
-	daoReferencia.save(newReferencia);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	//saveFile();
-	init();
-	
-	
-	
-//daoPelicula.save(newPelicula);
-
-//	init();
-	System.out.println("ARCHIVO XXXXXXXXXXXXXXX  ----- "+saludo);
-	System.out.println("EL TEXTO XXXXXXXXXXXXXXX  ----- "+texto);
-	//return "";
-return "referenciaApaListar";
-
-}
-
-
-/**
- * Llama a DaoInsertar que 
- * luego sera invocado por controlador
- * en Vista Insertar Referencia Bibliotecario
- **/
-public String insertarReferenciaBiblio() throws IOException, InterruptedException{
-
-	
-	
-	
-	
-	//System.out.println("COORTADO SSSS xxxxFF "+wey.substring(otro-3,otro));
-	if(uploadPdf()) {
-		//int otro=0+destino.length();
-		if(conectaServidor()) {
-		
-		
-		
-		if(mensaFromServidor()) 
-		{
-			newReferencia.setKeywords(cortaPalabras());
-		}
-		}
-		
-		
-		newReferencia.setUrlArchivo(destino);
-	
-	//newReferencia.setUrlArchivo(saveFile());
-		
-	
-	/*for (int i = 1; i <= 2300000; i++){ //borde de arriba
-        System.out.print("#"); 
-   }*/
-	
-	
-	
-	daoReferencia.save(newReferencia);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	//saveFile();
-	init();
-	
-	
-	
-//daoPelicula.save(newPelicula);
-
-//	init();
-	System.out.println("ARCHIVO XXXXXXXXXXXXXXX  ----- "+saludo);
-	System.out.println("EL TEXTO XXXXXXXXXXXXXXX  ----- "+texto);
-	//return "";
-return "referenciaBApaListar";
-
-}
-
-
-
-
-
-
-
-
-
-//////////////////////////////////////////////////////
-/**
- * Ejecuta Python desde cmd
- **/
+*Conecta con el servicio de Python
+*para ejecutar comandos que ejecuta Python para obtener
+*un archivo con la lista de las palabras keywords con nltk
+* @return - devuelve un boolean cuando se aya ejecutado todas
+* las instrucciones de python
+**/
 public  boolean conectaServidor() 
 {
 boolean var;
@@ -793,17 +1181,18 @@ boolean var;
 
 
 
-
 /**
- *Se conecta al servidor Socket 
- *para ejecutar codigo Python
- **/
+*Conecta con el servicio de Python mediante socket
+*que nos servira despues para ejecutar script python
+* @return - devuelve un boolean en caso de que coneccion 
+* con socket sea exitosa
+**/
 public  boolean mensaFromServidor()
 {
 	
-	for (int i = 1; i <= 700000; i++){ //borde de arriba
+	/*for (int i = 1; i <= 1500000; i++){ //borde de arriba
         System.out.print("#"); 
-   }
+   }*/
 	
 	
 	
@@ -825,8 +1214,10 @@ public  boolean mensaFromServidor()
         
         out.print(saludo);
         out.flush();
+        //System.out.println("Ver Formato Libro  "+getArchivo()+" "+getArchivo());
         System.out.println("Conectado ");
-        System.out.println("ARCHIVO XXXXXXXXXXXXXXX  ----- "+saludo);
+      /*  System.out.println("Ver Formato Libro  "+getArchivo()+" "+getArchivo());
+        System.out.println("ARCHIVO XXXXXXXXXXXXXXX  ----- "+saludo);*/
         return true;
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
@@ -834,33 +1225,20 @@ public  boolean mensaFromServidor()
 		return false;
 	}
 	 
-            
-            
-            
-            
-           
-       
-            
-            
-            
-        
-            
-            
-            
-            
-            
+          
 }
 
 
 /**
- * Lee el Documento de Keywoords
- * coortandolas y guardandolas en un String
- * que luego sera guardado en un Campo de Base de 
- * Datos
- **/
+*Metodo que nos permite leer el archivo de lista palabras
+*y cortarlas para que se guarden en un string
+* @return - devuelve un String de todas las palabras clave
+* estas palabras se guardar una tras otra con ","
+* -->"Palabra1, Palabra2, Palabra3"
+**/
 public String cortaPalabras() 
 {
-	for (int i = 1; i <= 3000000; i++){ //borde de arriba
+	for (int i = 1; i <= 4000000; i++){ //borde de arriba
         System.out.print("#"); 
    }
 	
@@ -868,6 +1246,7 @@ public String cortaPalabras()
 	saludo=FaceUtils.getPath()+Constantes.url+getArchivo().getFileName();
 
 	System.out.println("Metodo 	cortaPalabras XXXXXXXXXXXXXXX  ----- "+saludo);
+	
     ArrayList lineas = new ArrayList();
 	String part1,part2,valor="";
 	 //texto = "";
@@ -897,18 +1276,22 @@ public String cortaPalabras()
     		
     		 //System.out.println("SE DECONTROS");
     		// if((part1.compareTo("El")!=0)) {
-    		if(!part1.equals("La")) {
-    			if(!part1.equals("El")) {
-    				if(!part1.equals("En")) {
-    					if(!part1.equals("A")) {
+    		if(!part1.equals("la")) {
+    			if(!part1.equals("el")) {
+    				if(!part1.equals("en")) {
+    					if(!part1.equals("a")) {
     						if(!part1.equals("â€œ")) {
     							if(!part1.equals("â€�")) {
-    								if(!part1.equals("Se")) {
-    									if(!part1.equals("Para")) {
+    								if(!part1.equals("se")) {
+    									if(!part1.equals("para")) {
     										if(!part1.equals("â€“")) {
-    											if(!part1.equals("Los")) {
+    											if(!part1.equals("los")) {
     												if(!part1.equals("â€¢")) {
+    													if(!part1.equals("cada")) {
+    														if(part1.length()>1) {
     										lineas.add(part1);
+    														}
+    													}
     												}
     											}
     										}
@@ -951,35 +1334,137 @@ public String cortaPalabras()
 	
 }
 
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////CONTROLADOR PARA OPERACIONES DE REFERENCIA/////////////////////////
+/**
+* Llama a metodo save del Dao de Referencia
+* que luego sera invocado por controlador
+* en Vista para insertar una Referencia ahi que tener en cuenta
+* que incluira el proceso de carga de archivos pdf
+* @return - devuelve un String que me redirige a la pagina
+* donde mostraremos todas las referencias insertadas
+**/
+public String insertarReferencia() throws IOException, InterruptedException{
+System.out.println("Ver Formato Libro  "+getArchivo()+" "+getArchivo());
 
 
 
 
-/////////////////////////////////////////////////////
+//System.out.println("COORTADO SSSS xxxxFF "+wey.substring(otro-3,otro));
+if(uploadPdf()) {
+//int otro=0+destino.length();
+if(conectaServidor()) {
+
+
+
+if(mensaFromServidor()) 
+{
+newReferencia.setKeywords(cortaPalabras());
+}
+}
+
+
+newReferencia.setUrlArchivo(destino);
 
 
 
 
 
+daoReferencia.save(newReferencia);
+}
+
+init();
 
 
+System.out.println("Ver Formato Libro  "+getArchivo().getFileName()+" "+getArchivo().getInputstream());
 
+return "referenciaApaListar";
 
+}
 
 
 /**
- *Actualiza la Referencia 
- **/
+* Llama a metodo save del Dao de Referencia
+* que luego sera invocado por controlador
+* en Vista para insertar una Referencia ahi que tener en cuenta
+* que incluira el proceso de carga de archivos pdf
+* @return - devuelve un String que me redirige a la pagina
+* donde mostraremos todas las referencias insertadas
+* esto para el usuario Bibliotecario
+**/
+public String insertarReferenciaBiblio() throws IOException, InterruptedException{
 
+
+
+
+
+//System.out.println("COORTADO SSSS xxxxFF "+wey.substring(otro-3,otro));
+if(uploadPdf()) {
+//int otro=0+destino.length();
+if(conectaServidor()) {
+
+
+
+if(mensaFromServidor()) 
+{
+newReferencia.setKeywords(cortaPalabras());
+}
+}
+
+
+newReferencia.setUrlArchivo(destino);
+
+//newReferencia.setUrlArchivo(saveFile());
+
+
+/*for (int i = 1; i <= 2300000; i++){ //borde de arriba
+System.out.print("#"); 
+}*/
+
+
+
+daoReferencia.save(newReferencia);
+}
+
+
+
+
+
+
+
+
+//saveFile();
+init();
+
+
+
+
+
+//init();
+System.out.println("ARCHIVO XXXXXXXXXXXXXXX  ----- "+saludo);
+System.out.println("EL TEXTO XXXXXXXXXXXXXXX  ----- "+texto);
+//return "";
+return "referenciaBApaListar";
+
+}
+
+
+/**
+*Actualiza una Referencia
+*con los nuevos datos establecidos
+* @return - devuelve un String que me redirige a la pagina
+*actualizar referencia con el registro ya actualizado
+**/
 public String actualizarReferencia(int id){
 ReferenciaAPA pelicula =daoReferencia.leer(id);
 newReferencia=pelicula;
 return "referenciaApaRegistro";
 }
 /**
- *Redirige a referencia
- *segun cual se seleccione
- **/
+* Muestra pagina de la Referencia seleccionada con sus datos
+* @param codigo -id de la Referencia a ser visualizado
+* @return - devuelve un String de la pagina referencia segun id seleccionado
+**/
 public String editarReferencia(int codigo) {
 	
 	
@@ -987,28 +1472,37 @@ public String editarReferencia(int codigo) {
 }
 
 /**
- * Muestra La referencia
- * detasllado segun la referencia
- * que se seleccione
- **/
+* Muestra pagina detalle Referenica de acuerdo al id seleccionado
+* @param codigo -id de la referencia para ser accedido a detalle segun
+* referencia
+* @return - devuelve un String de la pagina detalle segun id de Referencia
+**/
 public String mostrarArticulo(int codigo) {
 	
 	
 	return "lectorLibroDetalle?faces-redirect=true&id="+codigo;
 }
 /**
- * Carga los Datos de Referencia
- **/
+*Carga los Valores de Referencia
+*llenando los campos con estos valores 
+*de acuerdo al id Seleccionado
+**/
 public void loadDatosReferencia() {
 	//System.out.println("codigo editar " + id);
 	if(id==0)
 		return;
+	
 	newReferencia = getReferencia(id);
 	//System.out.println(newUsuario.getIdUsuario() + " " + newUsuario.getNombre() );
 	//System.out.println("#telefonos: " + " " + persona.getTelefonos().size());
 	
 }
 
+/**
+* Llama a metodo leer de Referencia
+* @param codigo -ingresamos el id "Entero" para buscar referencia
+* @return - devuelve un objeto tipo Referencia de acuerdo al id de referencia
+**/
 public ReferenciaAPA getReferencia(int codigo) {
 	ReferenciaAPA ref = daoReferencia.leer(codigo);
 	
@@ -1020,9 +1514,9 @@ public ReferenciaAPA getReferencia(int codigo) {
  * Llama a DaoCargar que 
  * luego sera invocado por controlador
  * en Vista Caegar datos Referencia
+ * @throws IOException 
  **/
-public String cargarDatosReferencia() {
-	
+public String cargarDatosReferencia() throws IOException {
 	try {
 		daoReferencia.saveReferencia(newReferencia);
 		init();
@@ -1031,15 +1525,20 @@ public String cargarDatosReferencia() {
 		e.printStackTrace();
 	}
 	
+	
+	
 	return "referenciaApaActualizacion";
 }
 
 
 /**
- * Llama a DaoActualizar que 
- * luego sera invocado por controlador
- * en Vista Actualizar Calificacion Referencia
- **/
+* Llama a metodo actualizar del Dao Referencia
+* en donde se actualizara el campo calificacion
+* obteniendo un promedio del total de calificaciones
+* en Vista para eliminar unua Lectura
+* @return - devuelve un String que me redirige a la misma pagina detalle
+* referencia pero ya con el valor de calificacion modificado
+**/
 public String actualizarCalificacion() {
 	
 	try {
@@ -1108,12 +1607,13 @@ public String actualizarCalificacion() {
 	return "lectorLibroDetalle?faces-redirect=true&id="+id;
 }
 
-
 /**
- * Llama a DaoInsertar que 
- * luego sera invocado por controlador
- * en Vista Eliminar Referencia
- **/
+* Llama a metodo borrar del Dao Referencia que  
+* luego sera invocado por controlador
+* en Vista para borrar unua Lectura
+* @return - devuelve un String que me redirige a la misma pagina referencia
+* eliminar pero ya con  la referencia eliminada de la lista
+**/
 public String eliminarReferencia(int id){
 	//FaceUtils.getPath();
 	String var=daoReferencia.leer(id).getUrlArchivo();
@@ -1127,373 +1627,17 @@ folder.delete();
 init();
 return null;
 }
-////////////////////////////////////////////
-//Metodos Crud Usuario	
+
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////CONTROLADOR PARA OPERACIONES DE COMENTARIOS/////////////////////////
 
 /**
- * Llama a DaoInsertar que 
- * luego sera invocado por controlador
- * en Vista Insertar Usuario Bibliotecario
- **/
-public String insertarUsuarioBiblio() {
-	newUsuario.setUsrRol("biblio"); 
-//	newUsuario.setUsrTopic(false);
-	dao.save(newUsuario);
-	//init();
-	//logging = true;
-	//validarUsuario();
-	return "usuarioAdministradorListar";
-}
-
-/**
- * Llama a DaoInsertar que 
- * luego sera invocado por controlador
- * en Vista Insertar Usuario Lector
- **/
-public String insertarUsuarioLector() {
-	newUsuarioLector.setUsrRol("lector"); 
-//	newUsuario.setUsrTopic(false);
-	dao.save(newUsuarioLector);
-	//init();
-	//logging = true;
-	//validarUsuario();
-	return "lectorLogin";
-}
-
-
-public String botonIngresarUsuarioLector() {
-
-	return "lectorRegistro";
-}
-
-/**
- * Carga los datos del Usuario
- **/
-public void loadDatosUsuario() {
-	System.out.println("codigo editar " + id);
-	if(id==0)
-		return;
-	newUsuario = getUsuario(id);
-	System.out.println(newUsuario.getIdUsuario() + " " + newUsuario.getNombre() );
-	//System.out.println("#telefonos: " + " " + persona.getTelefonos().size());
-	
-}
-
-/**
- * Obtiene Usuario de acuerdo al id
- **/
-public Usuario getUsuario(int codigo) {
-	Usuario aux = dao.leer(codigo);
-	
-	return aux;
-	
-}
-/**
- * Redirige a UsuarioEditar de acuerdo al
- * usuario que se aya seleccionado a editar
- **/
-public String editarUsuario(int codigo) {
-	
-	
-	return "usuario?faces-redirect=true&id="+codigo;
-}
-
-/**
- * Llama a DaoCargar que 
- * luego sera invocado por controlador
- * en Vista Cargar Lectura
- **/
-public String cargarDatos() {
-	
-	try {
-		dao.save(newUsuario);
-		init();
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	
-	return "usuarioAdministradorActualizacion";
-}
-
-/**
- * Llama a DaoEliminar que 
- * luego sera invocado por controlador
- * en Vista Eliminar Usuario
- **/
-public String eliminarUsuario(int id){
-dao.borrar(id);
-init();
-return null;
-}
-
-
-////////////////////////////
-
-/**
- * Iniciar Sesion de  Usuario Lector
- * ve si usuario y password son correctos 
- * para acceder como Usuario lector 
- **/
-public String validarUsuarioLector(){
-	String destino="";
-	System.out.println("////////"+usuarioVerificar.getUsrCorreo());
-	newUsuarioLector=dao.buscarCorreo(usuarioVerificar);
-	String var=newUsuarioLector+" ";
-	//newUser=dao.buscarUsuario(usuarioVerificar);
-	System.out.println("Valor de USUARIO "+" "+var.substring(19,20));
-	int valor=Integer.parseInt(var.substring(19,20));
-	//System.out.println("Si existe  y se llama: "+ newUsuario.getUsrNombre());
-	if(valor>0){
-		//System.out.println("el usuario "+usuarioVerificar.getUsrCorreo()+" si existe");
-		//logging = true;.substring(0,8);
-		//destino="indexUsuario";
-		
-			//System.out.println("el usuario "+usuarioVerificar.getUsrCorreo()+"es usuarioLector");
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("lector",newUsuarioLector);
-		//administrador = true;
-		administrador = true;	
-			destino="indexLector";
-			//return "indexAdministrador";
-		
-		//return "indexUsuario";
-	}else {
-		System.out.println("el usuario lector "+usuarioVerificar.getUsrCorreo()+" no existe");
-		
-		destino="lectorLogin";
-		FacesContext context = FacesContext.getCurrentInstance();
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-		                                        "Usuario o Password Incorectos",
-		                                        "Usuario No existe");
-		context.addMessage(null, message);
-		context.validationFailed();
-		
-		return destino;
-	}
-
-	
-//	System.err.println(newUsuario.getUsuarioTwitter());
-
-
-	//init();	
-	
-	return destino;
-}
-
-
-
-
-
-////////////////////////////
-
-
-/**
- * Iniciar Sesion de  Usuario Administrativo 
- **/
-public String validarAdmin() throws IOException{
-	
-	FacesMessage message2 = null;
-	
-	
-	String destino="";
-	System.out.println("////////"+usuarioVerificar.getUsrCorreo());
-	newUsuario=dao.buscarCorreoAdmin(usuarioVerificar);
-	String var=newUsuario+" ";
-	//newUser=dao.buscarUsuario(usuarioVerificar);
-	System.out.println("Valor Completo "+" "+var);
-	System.out.println("Valor de USUARIO"+" "+var.substring(19,20));
-	int valor=Integer.parseInt(var.substring(19,20));
-	
-	
-	
-	newUsuarioB=dao.buscarCorreoBiblio(usuarioVerificar);
-	String varB=newUsuarioB+" ";
-	//newUser=dao.buscarUsuario(usuarioVerificar);
-	System.out.println("Valor Completo "+" "+varB);
-	System.out.println("Valor de USUARIO BIBLIO"+" "+varB.substring(19,20));
-	int valorB=Integer.parseInt(varB.substring(19,20));
-	
-	
-	
-	
-	//System.out.println("Si existe  y se llama: "+ newUsuario.getUsrNombre());
-	if(valor>0){
-		//System.out.println("el usuario "+usuarioVerificar.getUsrCorreo()+" si existe");
-		//logging = true;.substring(0,8);
-		//destino="indexUsuario";
-		
-			//System.out.println("el usuario "+usuarioVerificar.getUsrCorreo()+"es usuarioLector");
-			
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario",newUsuario);
-			administrador = true;	
-			destino="indexAdministrador.xhtml";
-			//return "indexAdministrador";
-		
-		//return "indexUsuario";
-	}else if(valorB>0)
-	{
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario",newUsuarioB);
-		administrador = true;	
-		destino="indexBibliotecario.xhtml";
-		
-	}else {
-		System.out.println("el usuario lector "+usuarioVerificar.getUsrCorreo()+" no existe");
-		
-		destino="usuarioLogin";
-		FacesContext context = FacesContext.getCurrentInstance();
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-		                                        "Usuario o Password Incorectos",
-		                                        "Usuario No existe");
-		context.addMessage(null, message);
-		context.validationFailed();
-		
-		return destino;
-	}
-
-	
-//	System.err.println(newUsuario.getUsuarioTwitter());
-
-
-	//init();	
-	//FacesContext context2 = FacesContext.getCurrentInstance();
-	
-	FacesContext.getCurrentInstance().getExternalContext().redirect(destino);
-	return destino;
-}
-
-
-/**
- * Permite ver si sesion esta abierta
- * o si no redirige a pagina verificar sesion
- **/
-public void verificarSesion() 
-{
-	try {
-		FacesContext context=FacesContext.getCurrentInstance();
-		newUsuarioB=(Usuario)context.getExternalContext().getSessionMap().get("usuario");
-		if(newUsuarioB==null){
-			context.getExternalContext().redirect("usuarioSinPermiso.xhtml");
-		}
-		
-		/*if(usu!=null){
-			context.getExternalContext().redirect("usuariofueRegistrado.xhtml");
-		}*/
-	}catch(Exception e)
-	{
-		//Algun registro de eror
-	}
-}
-/**
- * Permite cerrar la sesion a Usuario Administrativo
- * accediendo a la pagina usuarioLogin
- **/
-public String cerrarSesion()
-{
-	//FacesContext.getCurrentInstance().getExternalContext().redirect("usuarioLogin");
-	FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-	return "usuarioLogin";
-	
-}
-
-public void verificarSesionLector() 
-{
-	try {
-		FacesContext context=FacesContext.getCurrentInstance();
-		newUsuarioLector=(Usuario)context.getExternalContext().getSessionMap().get("lector");
-		if(newUsuarioLector==null){
-			context.getExternalContext().redirect("lectorLoginError.xhtml");
-		}
-		
-		/*if(usu!=null){
-			context.getExternalContext().redirect("usuariofueRegistrado.xhtml");
-		}*/
-	}catch(Exception e)
-	{
-		//Algun registro de eror
-	}
-}
-
-/**
- * Permite cerrar la sesion a Usuario Lector
- * accediendo a la pagina LectorLogin
- **/
-
-public String cerrarSesionLector()
-{
-	//FacesContext.getCurrentInstance().getExternalContext().redirect("usuarioLogin");
-	FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-	return "lectorLogin";
-	
-}
-
-@RequestScoped
-public void handleFileUpload(FileUploadEvent event) {  
-    FacesMessage msg = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");  
-    FacesContext.getCurrentInstance().addMessage(null, msg);  
-} 
-
-
-
-
-
-
-
-/*public String validarUsuario(){
-	String destino="";
-	System.out.println("////////"+usuarioVerificar.getUsrCorreo());
-	newUsuario=dao.buscarUsuario(usuarioVerificar);
-	//System.out.println("Si existe  y se llama: "+ newUsuario.getUsrNombre());
-	if(newUsuario!=null){
-		System.out.println("el usuario "+usuarioVerificar.getUsrCorreo()+" si existe");
-		logging = true;
-		destino="indexUsuario";
-		if (newUsuario.getUsrRol()){
-			//System.out.println("el usuario "+usuarioVerificar.getUsrCorreo()+"es administrador");
-			administrador = true;	
-			destino="indexAdministrador";
-			//return "indexAdministrador";
-		}
-		//return "indexUsuario";
-	}else {
-		System.out.println("el usuario "+usuarioVerificar.getUsrCorreo()+" no existe");
-		destino="usuarioLogin";
-		return destino;
-	}
-	
-//	System.err.println(newUsuario.getUsuarioTwitter());
-
-
-	//init();	
-	
-	return destino;
-}*/
-
-
-
-
-
-
-
-
-
-//////////////////////////////
-
-private String accion;
-
-
-
-public String getAccion() {
-	return accion;
-}
-
-public void setAccion(String accion) {
-	this.accion = accion;
-}
-/**
- * Llama a DaoInsertar que 
- * luego sera invocado por controlador
- * en Vista Insertar Comentario
- **/
+* Llama a metodo save del Dao Comentario que  
+* luego sera invocado por controlador
+* en Vista para insertar un Comentario 
+* @return - devuelve un String que me redirige a la referencia
+* detalle con todos los comentarios
+**/
 public String insertarComentario(){
 
 	//System.out.println("Estamos aqui");
@@ -1509,10 +1653,74 @@ public String insertarComentario(){
 
 }
 /**
- * Llama a DaoEliminar que 
- * luego sera invocado por controlador
- * en Vista Eliminar Comentario
- **/
+* Muestra pagina del Comentario seleccionado con sus datos
+* @param codigo -id del comentario a ser visualizado
+* @return - devuelve un String de la pagina comentario segun id seleccionado
+**/
+public String editarComentario(Integer codigo) {
+	
+	
+	return "comentario?faces-redirect=true&id="+codigo;
+}
+
+/**
+* Llama a metodo leer Comentario 
+* @param codigo -ingresamos el id "Entero" para busca comentario
+* @return - devuelve un objeto tipo Comentario de acuerdo al id de comentario
+**/
+public Comentario getComentario(int codigo) {
+	Comentario ref = daoComentario.leer(codigo);
+	
+	return ref;
+	
+}
+/**
+*Carga los Valores de Comentario
+*llenando los campos con estos valores 
+*de acuerdo al id Seleccionado
+**/
+public void loadDatosComentario() {
+	//System.out.println("codigo editar " + id);
+	if(id==0)
+		return;
+	
+	newComentario = getComentario(id);
+	//System.out.println(newUsuario.getIdUsuario() + " " + newUsuario.getNombre() );
+	//System.out.println("#telefonos: " + " " + persona.getTelefonos().size());
+	
+}
+
+/**
+*Actualiza un Comentario
+*con los nuevos datos establecidos
+* @return - devuelve un String que me redirige a la pagina
+*detalle lectura con el registro ya actualizado
+**/
+public String cargarDatosComentario() throws IOException {
+	//System.out.println("Ver Formato Libro  "+getArchivo()+" "+getArchivo());
+	try {
+		daoComentario.save(newComentario);
+		init();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+init();
+	
+	
+	
+	
+	return "indexLector";
+}
+
+/**
+* Llama a metodo borrar del Dao Comentario que  
+* luego sera invocado por controlador
+* en Vista para eliminar un Comentario
+* @return - devuelve un String que me redirige a la misma pagina detalle
+* referencia pero con comentario ya borrado
+**/
 public String eliminarComentario(int id){
 	//FaceUtils.getPath();
 	System.out.println("Estamos aqui XXXXXXXXXXXXXPUXXXX");
@@ -1523,50 +1731,29 @@ return "lectorLibroDetalle?faces-redirect=true&id="+id;
 }
 
 /**
- * Llama a DaoModificar que 
- * luego sera invocado por controlador
- * en Vista Modificar Comentario
- **/
-public String modificaCome(int id,String comentario) {
+* Metodo que llama al daoComentario para obtener
+* una lista de Comentarios de acuerdo a Referencia
+* @param id -entero id para ver lista de comentarios de acuerdo a 
+* referencia
+*   @return - devuelve un objeto lista comentarios de acuerdo
+*   al id de referencia
+**/
+public List<Comentario> getComentarioArticulo(int id){
 	
-	try {
-		newComentario=daoComentario.leer(id);
-		newComentario.setComentario(comentario);
-		System.out.println("Los comentarios Aqui jeje "  + newComentario.getComentario());
-		daoComentario.save(newComentario);
-		System.out.println("Los comentarios Aqui jeje "  + newComentario.getComentario());
-		init();
-	} catch (Exception e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	
-	return "lectorLibroDetalle?faces-redirect=true&id="+id;
-}
-
-
-public String obtenerComentario(int id)
-{
-	String comentario=daoComentario.leer(id).getComentario();
-	this.setAccion("M");
-	//System.out.print("Este es el comentario" +comentario); 
+	List<Comentario> comentario = listComentario=daoComentario.getComentarioArticulo(id);
 	return comentario;
-
 }
 
-public void mostrarComentario()
-{
-	RequestContext req=RequestContext.getCurrentInstance();
-}
-
-
-///////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
+/////////////////////CONTROLADOR PARA OPERACIONES DE LECTURA/////////////////////////
 
 /**
- * Llama a DaoInsertar que 
- * luego sera invocado por controlador
- * en Vista Insertar Lectura
- **/
+* Llama a metodo save del Dao Lectura que  
+* luego sera invocado por controlador
+* en Vista para insertar unua Lectura
+* @return - devuelve un String que me redirige a la misma pagina detalle
+* referencia pero con lectura ya agregada
+**/
 public String insertarLectura(){
 
 	//System.out.println("Estamos aqui");
@@ -1630,10 +1817,12 @@ public String insertarLectura(){
 
 }
 /**
- * Llama a DaoEliminar que 
- * luego sera invocado por controlador
- * en Vista Eliminar Lectura
- **/
+* Llama a metodo borrar del Dao Lectura que  
+* luego sera invocado por controlador
+* en Vista para eliminar unua Lectura
+* @return - devuelve un String que me redirige a la misma pagina lecturas
+* pero ya con referencia eliminada de lectura
+**/
 public String eliminarLectura(int id){
 	//FaceUtils.getPath();
 	
@@ -1642,6 +1831,25 @@ public String eliminarLectura(int id){
 init();
 return null;
 }
+
+
+/**
+* Metodo que llama al daoLectura para obtener
+* una lista de lecturas de acuerdo a Usuario
+* @param id -entero id para ver lista de lecturas de acuerdo a 
+* usuario
+*   @return - devuelve un objeto lista Lecturas de acuerdo
+*   al id de usuario
+**/
+public List<Lectura> getLecturaUsuario(int id){
+	
+	List<Lectura> lectura = listLectura=daoLectura.getLecturaUsuario(id);
+	return lectura;
+}
+
+
+
+
 
 
 }

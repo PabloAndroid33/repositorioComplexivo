@@ -20,6 +20,7 @@ import org.primefaces.model.UploadedFile;
 @ManagedBean
 @SessionScoped
 public class FileUploadView {
+	
 	UploadedFile file;
 
 

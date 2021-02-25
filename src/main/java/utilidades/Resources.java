@@ -13,10 +13,15 @@ public class Resources {
 
 	@Produces
 	@PersistenceContext
+	
+	/**
+     * Objeto del tipo Entity manager 
+     */
 	private EntityManager em;
 	   
 	 /*
 	  * Logger, API para manejar el debug (niveles de depuracion)
+	  *  * @return objeto del tipo Logger
 	  */
 	   @Produces
 	   public Logger produceLog(InjectionPoint injectionPoint) {
@@ -25,6 +30,7 @@ public class Resources {
 	 
 	  /*
 	   * Manipulacion de la vista (modificacion y actulizacion)
+	   * @return objeto del tipo FacesContext
 	   */
 	   @Produces
 	   @RequestScoped

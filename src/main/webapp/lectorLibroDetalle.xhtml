@@ -11,6 +11,10 @@
 	<f:metadata>
 		<f:viewParam name="id" value="#{controler.id}"></f:viewParam>
 		<f:viewAction action="#{controler.loadDatosReferencia ()}"/>
+		
+		
+	
+	
 	</f:metadata>
 	
 	<style type="text/css">
@@ -76,12 +80,11 @@ margin-left: 0px;
 	
 	<h:panelGrid columns="2">
 	
-		<strong>Resumen: </strong>
-		<h:outputLabel value="#{controler.newReferencia.resumen}" cols="30" rows="3" />	
-		<strong>Referencia APA:</strong>
+		
+		<strong>APA:</strong>
 		<h:outputLabel value="#{controler.newReferencia.referencia}" cols="30" rows="3" />
 		<strong>Palabra Clave:</strong>
-		<h:outputLabel value="#{controler.newReferencia.keywords}" cols="30" rows="3" />
+		<h:outputLabel value="#{controler.newReferencia.keywords.replaceAll(';',', ')}" cols="30" rows="3" />
 		
 	</h:panelGrid>
 	<br/>
@@ -156,62 +159,37 @@ margin-left: 0px;
 <div class="col-3"></div>
 
 <div class="col-6">
-<h:form id="frmPrincipal">
-<p:dataTable id="tabla" value="#{controler.getComentarioArticulo(controler.id)}"  var="comentario" class="cell-border" styleClass="table-hover"  tableStyle="width:auto"    style="font-family: sans-serif; border: 2px solid black ; border-collapse: separate; font-size:small; background-color: #EAF7FC; background:#EAF7FC; " >
+<h:form>
+<h:dataTable id="tabla" value="#{controler.getComentarioArticulo(controler.id)}"  var="comentario" class="cell-border" styleClass="table-hover"  tableStyle="width:auto"    style="font-family: sans-serif; border: 2px solid black ; border-collapse: separate; font-size:small; background-color: #EAF7FC; background:#EAF7FC; " >
  
-  <p:column>
- <h:commandButton action="#{controler.eliminarComentario(comentario.id)}" value="Eliminar" styleClass="btn btn-primary"/>
+  <h:column>
+
   <br/>
      <img src="imagenes/perfil.png"  alt="" />
      <br/>
      #{comentario.usuario.usrNombre}
-    </p:column>
+    </h:column>
   
-    <p:column   style="background-color:#EAF7FC" >
-  <div class="row"> 
-  <div class="col-9">
+    <h:column   style="background-color:#EAF7FC" >
+  
+  
   #{comentario.comentario}
-  </div>
   
-  <div class="col-3">
- <div class="row">
-<div class="col-3"></div>
-
-<div class="col-6">
-<p:dialog id="dialogo2" modal="true" styleClass=" position:absolute;" appendTo="@(body)"  onShow="PF('wdialogo').initPosition()"  position="center center"   widgetVar="wdialogo" header="Nuevo Comentario"  resizable="false" closeOnEscape="true" draggable="false" >
-<h:form id="frmedita">
-<h:panelGrid columns="2">
-<h:outputLabel value="Comentario" for="txtComentario"/>
-<p:inputText id="txtComentario2" alt="ot" widgetVar="comen"  slotChar="" required="true" value="#{controler.obtenerComentario(comentario.id)}"></p:inputText>
-
-<p:commandButton ajax="true" update="frmPrincipal" process="@all" value="ok" actionListener="#{controler.modificaCome(comentario.id,comen)}" oncomplete="Testing.hide()"/>
-
-<p:commandButton value="Cancelar" onclick="PF('wdialogo').hide();" ></p:commandButton>
-<p:commandButton value="." onclick="obtiene2()" 
-></p:commandButton>
-</h:panelGrid>
-</h:form> 
-
-
-
-
-
-</p:dialog>
-</div>
-<div class="col-3"></div>
-</div>
-
-
- <p:commandButton value="Editar" oncomplete="PF('wdialogo').show();" />
-  <h:commandButton action="#{controler.eliminarComentario(comentario.id)}" value="Eliminar" styleClass="btn btn-primary"/>
-  </div>
-  </div>
-    </p:column>
+  
+ 
+ 
+<br/>
+<center>
+ <h:commandButton action="#{controler.editarComentario(comentario.id)}" value="Editar" styleClass="btn btn-warning"/>
+  <h:commandButton action="#{controler.eliminarComentario(comentario.id)}" value="Eliminar" styleClass="btn btn-danger"/></center>
+  
+  
+    </h:column>
     
-  </p:dataTable>
+  </h:dataTable>
   </h:form>
 </div>
-<div class="col-3"></div>
+
 </div>
 
 <br/>

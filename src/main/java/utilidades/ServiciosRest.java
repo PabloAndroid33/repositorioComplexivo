@@ -1,9 +1,17 @@
 package utilidades;
 
 import java.util.List;
+import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.swing.JOptionPane;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -11,7 +19,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 
-
+import modelo.Comentario;
 import modelo.Lectura;
 
 //import modelo.CarritoDetalle;
@@ -19,6 +27,7 @@ import modelo.Lectura;
 //import modelo.Categoria;
 import modelo.ReferenciaAPA;
 import modelo.Usuario;
+import negocio.ComentarioDao;
 import negocio.LecturaDao;
 //import negocio.DirectorDao;
 import negocio.ReferenciaAPADao;
@@ -35,44 +44,118 @@ import negocio.UsuarioDao;
 @Path("/servicio")
 public class ServiciosRest {
 	
+	
+	/**
+     * Objeto del UsuarioDao a ser inyectada
+     * en la clase ServicioRest
+     */
 	@Inject
 	private UsuarioDao daoU;
 	
+	/**
+     * Objeto de ReferenciaAPADao a ser inyectada
+     * en la clase ServicioRest
+     */
 	@Inject
 	private ReferenciaAPADao daoR;
 	
+	
+	/**
+     * Objeto de LecturaDao a ser inyectada
+     * en la clase ServicioRest
+     */
 	@Inject
 	private LecturaDao daoL;
 	
 	
+	/**
+     * Objeto de ComentarioDao a ser inyectada
+     * en la clase ServicioRest
+     */
+	@Inject
+	private ComentarioDao daoC;
 	
+	
+	
+	/**
+	 * Obtiene un Usuario Dao
+	 * @return - devuelve un objeto del UsuarioDao
+	 **/
 	public UsuarioDao getDaoU() {
 		return daoU;
 	}
 
+	/**
+	 * Este metodo estable el objeto Usuario Dao
+	 * @param daoU - objeto UsuarioDao a ingresar
+	 **/
 	public void setDaoU(UsuarioDao daoU) {
 		this.daoU = daoU;
 	}
 	
 	
 	
-	
+	/**
+	 * Obtiene una RefenciaAPA Dao
+	 * @return - devuelve un objeto del ReferenciaDao
+	 **/
 	public ReferenciaAPADao getDaoR() {
 		return daoR;
 	}
 
+	/**
+	 * Este metodo estable el objeto Referencia Dao
+	 * @param daoU - objeto ReferenciaAPADao a ingresar
+	 **/
 	public void setDaoR(ReferenciaAPADao daoR) {
 		this.daoR = daoR;
 	}
 
+	/**
+	 * Obtiene una Lectura Dao
+	 * @return - devuelve un objeto de las LecturasDao
+	 **/
 	public LecturaDao getDaoL() {
 		return daoL;
 	}
 
+	
+	/**
+	 * Este metodo estable el objeto Usuario Dao
+	 * @param daoU - objeto LecturaDao a ingresar
+	 **/
 	public void setDaoL(LecturaDao daoL) {
 		this.daoL = daoL;
 	}
 
+	
+	
+	
+	/**
+	 * Obtiene un Comentario Dao
+	 * @return - devuelve un objeto del UsuarioDao
+	 **/
+	public ComentarioDao getDaoC() {
+		return daoC;
+	}
+
+	/**
+	 * Este metodo estable el objeto Comentario Dao
+	 * @param daoU - objeto ComentarioDao a ingresar
+	 **/
+	public void setDaoC(ComentarioDao daoC) {
+		this.daoC = daoC;
+	}
+
+//Usuarios	
+	
+	
+/**
+ * Declara un web Service que me lista todos
+ * los usuarios tipo-"Lector"
+* @param filtro -Para filtrar Usuarios
+* @return - devuelve la lista de Usuarios
+**/
 	@GET
 	@Path("listado")
 	@Produces("application/json")
@@ -84,9 +167,43 @@ public class ServiciosRest {
 		//return
 	}
 	
+	/**
+	 * Declara un web Service que me lista 
+	 * un usuario especifico de acuerdo a id
+	* @param filtro -ingresamos el id "Entero" a buscar
+	* @return - devuelve un objeto Usuario 
+	**/
+	
+	@GET
+	@Path("leerusuario")
+	@Produces("application/json")
+	public Usuario obtenerUsuario(@QueryParam("filtro") int filtro){
+		//return dao.getPersonasPorNombre(filtro);
+		
+		return daoU.leer(filtro);
+		
+		//return
+	}
+	
 	
 
 	
+	
+
+	
+	
+	
+	
+	
+	
+	/**
+	 * Declara un web Service que me Guarda
+	 * un Usuario
+	* @param usu -ingresamos un objeto de tipo Usuario
+	* para que este sea guardado
+	* @return - devuelve un objeto tipo resultado "Si" 
+	* en caso de insercion de usuario concretada 
+	**/
 	@POST
 	@Path("/guardarusuario")
 	@Produces("application/json")
@@ -106,6 +223,48 @@ public class ServiciosRest {
 		}
 		return res;
    }
+	
+	
+	
+	/**
+	 * Declara un web Service que me actualiza
+	 * un Usuario
+	* @param usu -ingresamos un objeto de tipo Usuario
+	* para que este sea actualizado
+	* @return - devuelve un objeto tipo resultado "Si" 
+	* en caso de actualizacion de usuario concretada 
+	**/
+	@POST
+	@Path("/actualizausuario")
+	@Produces("application/json")
+	@Consumes("application/json")
+   public Respuesta actualizaUsuario(Usuario usu)
+   {
+		Respuesta res=new Respuesta();
+		try {
+			//usu.act
+		daoU.actualizarUsuario(usu);
+		res.setCodigo(1);
+		res.setMensaje("Registro de Usuario a sido Satisfactorio");
+		
+		}catch(Exception e)
+		{
+			res.setCodigo(-1);
+			res.setMensaje("Error en Registro de Usuario");
+		}
+		return res;
+   }
+	
+////////////////////////////////////////////////////////////////////////	
+	
+
+	
+	/**
+	 * Declara un web Service que me lista 
+	 * referencias ordenadas por calificacion mayor
+	* @return - devuelve un objeto Usuario 
+	**/	
+
 	@GET
 	@Path("/listadocumentopuntuacion")
 	@Produces("application/json")
@@ -115,6 +274,16 @@ public class ServiciosRest {
 		return referencia;
    }
 	
+	
+	
+//Si utilizado para las Busquedas y webService
+	
+	/**
+	 * Declara un web Service que me lista 
+	 * las keywords de cada una de las Referencia
+	* @return - devuelve una lista de referencias
+	* con sus respectivos keywords
+	**/
 	@GET
 	@Path("/listakeywords")
 	@Produces("application/json")
@@ -124,8 +293,18 @@ public class ServiciosRest {
 		return referencia;
    }
 	
+/////////////////////////////////////////////////////////////
+	
+
+//Lecturas
 	
 	
+	/**
+	 * Declara un web Service que me lista todos
+	 * los lecturas agregadas por un usuario especifico
+	* @param filtro - id de usuario para listar sus lecturas
+	* @return - devuelve la lista de lecturas de un usuario especifico
+	**/
 	@GET
 	@Path("/listalecturas")
 	@Produces("application/json")
@@ -134,376 +313,34 @@ public class ServiciosRest {
 		List<Lectura> referencia=daoL.getLecturaUsuarioRef(filtro);
 		return referencia;
    }
-//Declaracion de atributos de la clases utilizando  objeto para: CategoriaDao, UsuarioDao
-//y Categoria	
-	
-/*	@Inject
-	private CategoriaDao dao;
-	
-	
-	@Inject
-	private CalificacionDao caldao;
-	
-	@Inject
-	private CarritoComprasDao carrDao;
-	
-	
-	@Inject
-	private CarroDao carroDao;
-	
-	
-	@Inject
-	private CarroDetalleDao carroDDao;
-	
-	/*@Inject
-	private CarritoDetalleDao carrDeta;
-	
-	public CarritoDetalleDao getCarrDeta() {
-		return carrDeta;
-	}
-
-	public void setCarrDeta(CarritoDetalleDao carrDeta) {
-		this.carrDeta = carrDeta;
-	}*/
-
-/*	public CarroDetalleDao getCarroDDao() {
-		return carroDDao;
-	}
-
-	public void setCarroDDao(CarroDetalleDao carroDDao) {
-		this.carroDDao = carroDDao;
-	}
-
-	public CarritoComprasDao getCarrDao() {
-		return carrDao;
-	}
-
-	public void setCarrDao(CarritoComprasDao carrDao) {
-		this.carrDao = carrDao;
-	}
-
-	public CalificacionDao getCaldao() {
-		return caldao;
-	}
-
-	public void setCaldao(CalificacionDao caldao) {
-		this.caldao = caldao;
-	}
-
-	@Inject
-	private PeliculaDao pdao;
-	
-	
-	@Inject
-	private UsuarioDao daoU;
-	
-	Categoria newCategoria;
 
 	
-//Getters y Setters de los atributos de la clase
-	public CategoriaDao getDao() {
-		return dao;
-	}
-
-	public void setDao(CategoriaDao dao) {
-		this.dao = dao;
-	}
-
-
 	
-	public Categoria getNewCategoria() {
-		return newCategoria;
-	}
-
-	public void setNewCategoria(Categoria newCategoria) {
-		this.newCategoria = newCategoria;
-	}
-
-	private List<Categoria> listCategoria;
-	
-	public UsuarioDao getDaoU() {
-		return daoU;
-	}
-
-	public void setDaoU(UsuarioDao daoU) {
-		this.daoU = daoU;
-	}
-
-	@PostConstruct
-	public void init(){
-		
-	    
-	    newCategoria=new Categoria();
-	 }
-
-	
-	/*Metodo web Service que me listara todas las categorias existentes
-	 donde sera de tipo get y se llamara listacategoria ademas que se visualizara
-	 en formato de salida application/json
-	 */	
-/*		@GET
-		@Path("/listapelicula")
-		@Produces("application/json")
-	   public List<Pelicula> listarPeliculas()
-	   {
-			List<Pelicula> pelicula=pdao.getPelicula();
-			return pelicula;
-	   }
-	
-		@GET
-		@Path("/listapeliculaano")
-		@Produces("application/json")
-	   public List<Pelicula> listarPeliculasAno()
-	   {
-			List<Pelicula> pelicula=pdao.getPeliculaPorAno();
-			return pelicula;
-	   }
-	
-	
-	
-/*Metodo web Service que me listara todas las categorias existentes
- donde sera de tipo get y se llamara listacategoria ademas que se visualizara
- en formato de salida application/json
- */	
-	/*@GET
-	@Path("/listacategoria")
-	@Produces("application/json")
-   public List<Categoria> listarCategoria()
-   {
-		List<Categoria> categorias=dao.getCategoria();
-		return categorias;
-   }
-	*/
-
-/*Metodo web Service que me guardara un nuevoUsuario
-donde sera de tipo gpost y se llamara guardarusuario ademas que se visualizara
-en formato de salida application/json
-*/	
-/*	@POST
-	@Path("/guardarusuario")
-	@Produces("application/json")
-	@Consumes("application/json")
-   public Respuesta guardarUsuario(Usuario usu)
-   {
-		Respuesta res=new Respuesta();
-		try {
-		daoU.insertarUsuario(usu);
-		res.setCodigo(1);
-		res.setMensaje("Registro de Usuario a sido Satisfactorio");
-		
-		}catch(Exception e)
-		{
-			res.setCodigo(-1);
-			res.setMensaje("Error en Registro de Usuario");
-		}
-		return res;
-   }
-	
-	
-	@POST
-	@Path("/calificacion")
-	@Produces("application/json")
-	@Consumes("application/json")
-   public Respuesta guardarCalificacion(Calificacion cal)
-   {
-		Respuesta res=new Respuesta();
-		try {
-		caldao.insertarcalificacion(cal);
-		res.setCodigo(1);
-		res.setMensaje("Registro de Calificacion a sido Satisfactorio");
-		
-		}catch(Exception e)
-		{
-			res.setCodigo(-1);
-			res.setMensaje("Error en Registro de Usuario");
-		}
-		return res;
-   }
-	
-	
-	@POST
-	@Path("/guardarcarrito")
-	@Produces("application/json")
-	@Consumes("application/json")
-   public Respuesta guardarCarrito(CarritoCompras car)
-   {
-		Respuesta res=new Respuesta();
-		try {
-		carrDao.insertarcarrito(car);
-		res.setCodigo(1);
-		res.setMensaje("Registro de Carrito de Compras a sido Satisfactorio");
-		
-		}catch(Exception e)
-		{
-			res.setCodigo(-1);
-			res.setMensaje("Error en Registro de Usuario");
-		}
-		return res;
-   }
-	
-	@POST
-	@Path("/detalle")
-	@Produces("application/json")
-	@Consumes("application/json")
-   public Respuesta guardardetalle(CarroDetalle car)
-   {
-		Respuesta res=new Respuesta();
-		try {
-			carroDDao.insertarcarroDetalle(car);
-		res.setCodigo(1);
-		res.setMensaje("Registro de Carrito de Compras a sido Satisfactorio");
-		
-		}catch(Exception e)
-		{
-			res.setCodigo(-1);
-			res.setMensaje("Error en Registro de Usuario");
-		}
-		return res;
-   }
-	
-	@POST
-	@Path("/carro")
-	@Produces("application/json")
-	@Consumes("application/json")
-   public Respuesta guardarCarro(Carro car)
-   {
-		Respuesta res=new Respuesta();
-		try {
-		carroDao.insertarcarro(car);
-		res.setCodigo(1);
-		res.setMensaje("Registro de Carrito de Compras a sido Satisfactorio");
-		
-		}catch(Exception e)
-		{
-			res.setCodigo(-1);
-			res.setMensaje("Error en Registro de Usuario");
-		}
-		return res;
-   }
-	
-	
-	/*@POST
-	@Path("/guardarcarritodetalle")
-	@Produces("application/json")
-	@Consumes("application/json")
-   public Respuesta guardarCarritoDetalle(CarritoDetalle car)
-   {
-		Respuesta res=new Respuesta();
-		try {
-		carrDeta.insertarcarritoDetalle(car);
-		res.setCodigo(1);
-		res.setMensaje("Registro de Usuario a sido Satisfactorio");
-		
-		}catch(Exception e)
-		{
-			res.setCodigo(-1);
-			res.setMensaje("Error en Registro de Usuario");
-		}
-		return res;
-   }*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-/*	@POST
-	@Path("/usuarioLogin")
-	@Produces("application/json")
-	@Consumes("application/json")
-   public boolean loginUsuario(Usuario usuario)
-   {
-		boolean logging;
-		//Respuesta res=new Respuesta();
-			Usuario us=new Usuario();
-		us=daoU.buscarUsuario(usuario);
-		if(us!=null){
-			System.out.println("el usuario "+us.getUsrCorreo()+" si existe");
-			logging = true;
-	//return logging;
-			//destino="indexUsuario";
-			
-			//return "indexUsuario";
-		}else {
-			System.out.println("el usuario "+us.getUsrCorreo()+" no existe");
-			logging=false;
-			//return null;
-		}
-		
-		return logging;
-   }
-	
-	
-	
-	
-
-	
-//Metodo de prueba registra nueva categoria	
-	@POST
-	@Path("/guardarcategoria")
-	@Produces("application/json")
-	@Consumes("application/json")
-   public Respuesta guardarCategoria(Categoria cat)
-   {
-		
-		Respuesta res=new Respuesta();
-		try {
-		
-		dao.save(cat);
-		res.setCodigo(1);
-		res.setMensaje("Registro Satisfactorio");
-		
-		}catch(Exception e)
-		{
-			res.setCodigo(-1);
-			res.setMensaje("Error en Registro");
-		}
-		return res;
-   }
-	
-	
-	
-//Metodo Prueba busca categoria de acuerdo a id
+	/**
+	 * Declara un web Service que me lista todos
+	 * los comentarios de una referencia especifica
+	* @param filtro - id de referencia para listar sus comentarios
+	* @return - devuelve la lista de comentarios de referencia especifica
+	**/
 	@GET
-	@Path("/categoriaid")
+	@Path("/listacomentarios")
 	@Produces("application/json")
-   public Categoria getCategoriaId(@QueryParam("id") int id)
+   public List<Comentario> listarComentarios(@QueryParam("filtro") int filtro)
    {
-		
-		Categoria categoria=dao.leer(id);
-		System.out.println(categoria);
-		
-		return categoria;
+		List<Comentario> comentario=daoC.getComentarioArticulo(filtro);
+		return comentario;
    }
-
-	//Metodo Prueba obtiene categoria no desde el dao	
-		@GET
-		@Path("/categoria")
-		@Produces("application/json")
-	   public Categoria getCategoria(@QueryParam("id") int id)
-	   {
-			Categoria categoria=new Categoria();
-			categoria.setId(id); 
-			categoria.setNombre("Terror") ;
-			categoria.setDescripcion("Da miedo");
-			return categoria;
-	   }
-
-
-		@GET
-		@Path("listado")
-		@Produces("application/json")
-		public List<Usuario> listar(@QueryParam("filtro") String filtro){
-			//return dao.getPersonasPorNombre(filtro);
-			
-			return daoU.getUsuarios();
-			
-			//return
-		}
 	
-	*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

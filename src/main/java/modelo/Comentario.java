@@ -19,19 +19,37 @@ import javax.persistence.Table;
 @Entity
 @Table(name="tbl_comentario")
 public class Comentario {
-	  
+	 
+	/**
+     * Atributo entero de id del tipo prymary key
+     * para implementarse en la tabla
+     */
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 		@Column(name="ref_id",length=6)
 		private int id;
 		
+		/**
+	     * Atributo String comentario
+	     * para implementarse en la tabla
+	     */
 		@Column(length=200)
 		private String comentario;
 		
+		/**
+	     * Atributo objeto Usuario 
+	     * con declaracion Muchos a uno
+	     * para implementarse en la tabla
+	     */
 		@ManyToOne
 		private Usuario usuario;
 		
+		/**
+	     * Atributo objeto Referencia 
+	     * con declaracion Muchos a uno
+	     * para implementarse en la tabla
+	     */
 		@ManyToOne
 		private ReferenciaAPA referencia;
 		/**

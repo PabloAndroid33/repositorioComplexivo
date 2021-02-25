@@ -48,11 +48,11 @@
 <div class="row">
  <div class="col-1"></div>
  <div class="col-10">
-<h:dataTable value="#{controler.getLecturaUsuario(controler.newUsuarioLector.idUsuario)}" styleClass="table-hover"  var="lectura" class="table"  columnClasses="column1,column2" style="font-family: sans-serif; border:none;font-size:  small;padding:1px; background-color: #EAF7FC; background:#EAF7FC; ">
+<p:dataTable paginator="true" value="#{controler.getLecturaUsuario(controler.newUsuarioLector.idUsuario)}" styleClass="table-hover"  var="lectura" class="table"  columnClasses="column1,column2" style="font-family: sans-serif; border:none;font-size:  small;padding:1px; background-color: #EAF7FC; background:#EAF7FC; ">
    
   
   
-  <h:column>
+  <p:column>
   <div class="row">
   <div class="col-2">
   
@@ -63,7 +63,7 @@
   <h4><h:commandLink action="#{controler.mostrarArticulo(lectura.referencia.id)}" title="Titulo del Documento">Nombre: #{lectura.referencia.nombre}</h:commandLink> </h4><br/>
      <div class="row">
      	<div class="col-9">
-     	<h:outputLabel value="#{lectura.referencia.resumen}" title="Resumen del Documento"/> 
+     	<h:outputLabel value="#{lectura.referencia.referencia}" title="Resumen del Documento"/> 
       	</div>
         <div class="col-3">
      	 <p:commandButton  class="btn btn-sm btn-danger " value="Eliminar" style="margin-right:10px;width:10px;height:35px" icon="ui-icon-trash" title="Eliminar de Mis Lecturas" action="#{controler.eliminarLectura(lectura.id)}" onclick="setTimeout('location.reload();', 1000);"></p:commandButton>
@@ -74,24 +74,24 @@
   </div>
   </div>
   
-  </h:column>
+  </p:column>
   
    <!-- 
   <h:column >
   <br/>
  
      <a href="#{facesContext.externalContext.requestContextPath}#{lectura.referencia.urlArchivo}"><img src="imagenes/pdf.png" width="110" height="”130”" alt="" /></a>
-    </h:column>
+    </p:column>
   
   
-    <h:column>
+    <p:column>
    
    <h4><h:commandLink action="#{controler.mostrarArticulo(lectura.referencia.id)}" >Nombre: #{lectura.referencia.nombre}</h:commandLink> </h4><br/>
       #{lectura.referencia.resumen}
     </h:column> --> 
       
 
-  </h:dataTable>
+  </p:dataTable>
   </div>
   <div class="col-1"></div>
 </div> 
